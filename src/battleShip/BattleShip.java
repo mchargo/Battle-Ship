@@ -30,11 +30,20 @@ public class BattleShip
 	public static final String bnone = " ";
 
 	// specific ship lengths:
-	public static final int aircraftCarrier = 5;
 	public static final int battleship = 4;
+	public static final int aircraftCarrier = 5;
+	public static final int boat = 2;
 	public static final int submarine = 3;
 	public static final int destroyer = 3;
-	public static final int boat = 2;
+	
+	// (1) Battleship, (2) Aircraft Carrier, (3) Boat, (4) Submarine, (5) Destroyer
+	public static final int BATTLESHIP = 0;
+	public static final int AIRCRAFT_CARRIER = 1;
+	public static final int BOAT = 2;
+	public static final int SUBMARINE = 3;
+	public static final int DESTROYER = 4;
+	
+	public static final int[] lengths = new int[]{4, 5, 2, 3, 3};
 
 	static class Player
 	{
@@ -99,8 +108,10 @@ public class BattleShip
 		 * @return Whether or not the ship was placed.
 		 */
 		public boolean simplePlacePiece(int startRow, int startCol, 
-				int pieceLength, boolean vertical)
+				int piece, boolean vertical)
 		{
+			int pieceLength = lengths[piece];
+			
 			boolean success = true;
 			int row = startRow;
 			int col = startCol;
@@ -155,30 +166,30 @@ public class BattleShip
 		window.println("Player 1 blank board:");
 		player1.printboard();
 		window.println("Which ship would you like to place? Options: (1) Battleship, (2) Aircraft Carrier, (3) Boat, (4) Submarine, (5) Destroyer");
-		int shipType = window.nextInt();
-
+		
+		int shipType = window.nextInt() - 1;
 		String question1 = "";
 		String question2 = "";
 
 		switch(shipType)
 		{
-		case 1:
+		case BATTLESHIP:
 			question1 = "What row would you like to place your battleship in?";
 			// question2 = 
 			break;
-		case 2:
+		case AIRCRAFT_CARRIER:
 			question1 = "What row would you like to place your aircraft carrier in?";
 			// question2 = 
 			break;
-		case 3:
+		case BOAT:
 			question1 = "What row would you like to place your boat in?";
 			// question2 = 
 			break;
-		case 4:
+		case SUBMARINE:
 			question1 = "What row would you like to place your submarine in?";
 			// question2 = 
 			break;
-		case 5:
+		case DESTROYER:
 			question1 = "What row would you like to place your destroyer in?";
 			// question2 = 
 			break;
