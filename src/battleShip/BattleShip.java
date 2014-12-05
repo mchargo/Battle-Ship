@@ -68,11 +68,11 @@ public class BattleShip
 			{
 				for(int column = 0;column < boardColumns;column++)
 				{
-					if(column == 0) System.out.print("|");
-					System.out.print(board[row][column] + "|");
+					if(column == 0) window.print("|");
+					window.print(board[row][column] + "|");
 				}
 				
-				System.out.println();
+				window.println();
 			}
 		}
 		
@@ -123,7 +123,7 @@ public class BattleShip
 			}catch(Exception e)
 			{
 				// something went wrong?
-				System.out.println("Error placing piece: " + e);
+				window.println("Error placing piece: " + e);
 				success = false;
 			}
 			
@@ -135,8 +135,13 @@ public class BattleShip
 		public String[][] board; // our board for our player
 	}
 	
+	public static Window window;
+	
 	public static void main(String[] args) 
 	{
+		// initilize window
+		window = new Window();
+		
 		// setup player1 so that their board is empty
 		Player player1 = new Player();
 		player1.initilizeBoard(10, 10);
@@ -147,13 +152,13 @@ public class BattleShip
 		
 		
 		// lets print the blank board:
-		System.out.println("Player 1 blank board:");
+		window.println("Player 1 blank board:");
 		player1.printboard();
 		
 		
 		// now for example, I will add a destroyer for you.
 		// Use simplePlacePiece instead of placeShipPiece
-		System.out.println("\nAdding a bunch of ships:");
+		window.println("\nAdding a bunch of ships:");
 		player1.simplePlacePiece(3, 0, battleship, true);
 		player1.simplePlacePiece(5, 5, aircraftCarrier, false);
 		player1.simplePlacePiece(9, 5, boat, false);
