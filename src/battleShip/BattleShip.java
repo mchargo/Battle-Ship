@@ -6,17 +6,17 @@ public class BattleShip
 	// For example:
 	// Destroyer (4 pieces):  < * * >
 	// Little boat (2 pieces): < >
-	
+
 	// or vertically:
 	// Destroyer (4 pieces):
-	
+
 	// ^
 	// *
 	// *
 	// v
-	
+
 	// Little boat (2 pieces):
-	
+
 	// ^
 	// v
 	public static final String bup = "^";
@@ -24,18 +24,18 @@ public class BattleShip
 	public static final String bright = ">";
 	public static final String bleft = "<";
 	public static final String bhull = "*";
-	
+
 	public static final String hit = "X";
 	public static final String miss = "m";
 	public static final String bnone = " ";
-	
+
 	// specific ship lengths:
 	public static final int aircraftCarrier = 5;
 	public static final int battleship = 4;
 	public static final int submarine = 3;
 	public static final int destroyer = 3;
 	public static final int boat = 2;
-	
+
 	static class Player
 	{
 		/**
@@ -47,16 +47,16 @@ public class BattleShip
 		{
 			// create a new board with rows and columns
 			board = new String[rows][columns];
-			
+
 			// make all of the squares equal to " "
 			for(int row = 0;row < rows;row++)
 				for(int column = 0;column < columns;column++)
 					board[row][column] = bnone;
-			
+
 			boardRows = rows;
 			boardColumns = columns;
 		}
-		
+
 		/**
 		 * Print out the player's board. This
 		 * is a very simple implementation and
@@ -71,11 +71,11 @@ public class BattleShip
 					if(column == 0) window.print("|");
 					window.print(board[row][column] + "|");
 				}
-				
+
 				window.println();
 			}
 		}
-		
+
 		/**
 		 * Place the given piece onto the board at row,col
 		 * @param row The row to place the piece at.
@@ -86,7 +86,7 @@ public class BattleShip
 		{
 			board[row][col] = piece;
 		}
-		
+
 		/**
 		 * This method will place a piece on the board
 		 * for you so that you don't have to worry about
@@ -111,12 +111,12 @@ public class BattleShip
 				{
 					if(!board[row][col].equals(bnone))
 						throw new Exception("Ship Collision Error");
-					
+
 					if(x == 0) board[row][col] = vertical ? bup : bleft;
 					else if(x == pieceLength - 1) 
 						board[row][col] = vertical ? bdown : bright;
 					else board[row][col] = bhull;
-					
+
 					if(vertical) row++;
 					else col++;
 				}
@@ -126,82 +126,91 @@ public class BattleShip
 				window.println("Error placing piece: " + e);
 				success = false;
 			}
-			
+
 			return success;
 		}
-		
+
 		private int boardRows;
 		private int boardColumns;
 		public String[][] board; // our board for our player
 	}
-	
+
 	public static Window window;
-	
+
 	public static void main(String[] args) 
 	{
 		// initilize window
 		window = new Window();
-		
+
 		// setup player1 so that their board is empty
 		Player player1 = new Player();
 		player1.initilizeBoard(10, 10);
-		
+
 		// setup player2 so that their board is empty
 		Player player2 = new Player();
 		player2.initilizeBoard(10, 10);
-		
-		
+
+
 		// lets print the blank board:
 		window.println("Player 1 blank board:");
 		player1.printboard();
 		window.println("Which ship would you like to place? Options: (1) Battleship, (2) Aircraft Carrier, (3) Boat, (4) Submarine, (5) Destroyer");
 		int shipType = window.nextInt();
-		String orientation=window.nextLine();
-		if(shipType==1)
+
+		String question1 = "";
+		String question2 = "";
+
+		switch(shipType)
 		{
-			window.println("What row would you like to place your battleship in?");
-			int row=window.nextInt();
-			if(row>=1||row<=10)
-			{
-				window.println("What column would you like to place your battleship in?");
-				int column =window.nextInt();
-				if(column>=1||column<=10)
-				{
-					window.println("Would you like the piece to be vertical? (Y/n)");
-					if(orientation.equals("Y")||orientation.equals("y"))
-					{
-						boolean vertical=true;
-					}else if(orientation.equals("N")||orientation.equals("n"))
-					{
-						boolean vertical=false;
-					}else{
-						window.println("Invalid input. Please enter Y/y or N/n");
-					}
-				}
-			}else{
-				window.println("Invalid row number. Please choose row between 1-10.");
-			}
-		}
-		if(shipType==2)
-		{
-			window.println("What row would you like to place your aircraft carrier in?");
-		}
-		if(shipType==3)
-		{
-			window.println("What row would you like to place your boat in?");
-		}
-		if(shipType==4)
-		{
-			window.println("What row would you like to place your submarine in?");
-		}
-		if(shipType==5)
-		{
-			window.println("What row would you like to place your destroyer in?");
-		}
-		if(!(shipType==1||shipType==2||shipType==3||shipType==4||shipType==5))
-		{
+		case 1:
+			question1 = "What row would you like to place your battleship in?";
+			// question2 = 
+			break;
+		case 2:
+			question1 = "What row would you like to place your aircraft carrier in?";
+			// question2 = 
+			break;
+		case 3:
+			question1 = "What row would you like to place your boat in?";
+			// question2 = 
+			break;
+		case 4:
+			question1 = "What row would you like to place your submarine in?";
+			// question2 = 
+			break;
+		case 5:
+			question1 = "What row would you like to place your destroyer in?";
+			// question2 = 
+			break;
+		default:
 			window.println("Invalid ship selection. Please enter a number 1-5.");
 		}
+
+
+		window.println(question1);
+		int row=window.nextInt();
+		if(row>=1||row<=10)
+		{
+			window.println(question2);
+			int column =window.nextInt();
+			if(column>=1||column<=10)
+			{
+				window.println("Would you like the piece to be vertical? (Y/n)");
+				String orientation=window.nextLine();
+				if(orientation.equals("Y")||orientation.equals("y"))
+				{
+					boolean vertical=true;
+				}else if(orientation.equals("N")||orientation.equals("n"))
+				{
+					boolean vertical=false;
+				}else{
+					window.println("Invalid input. Please enter Y/y or N/n");
+				}
+			}
+		}else{
+			window.println("Invalid row number. Please choose row between 1-10.");
+		}
+
 		// now for example, I will add a destroyer for you.
 		// Use simplePlacePiece instead of placeShipPiece
 		window.println("\nAdding a bunch of ships:");
@@ -211,6 +220,6 @@ public class BattleShip
 		player1.simplePlacePiece(5, 2, submarine, true);
 		player1.simplePlacePiece(8, 2, destroyer, false);
 		player1.printboard();
-		
+
 	}
 }
