@@ -154,8 +154,54 @@ public class BattleShip
 		// lets print the blank board:
 		window.println("Player 1 blank board:");
 		player1.printboard();
-		
-		
+		window.println("Which ship would you like to place? Options: (1) Battleship, (2) Aircraft Carrier, (3) Boat, (4) Submarine, (5) Destroyer");
+		int shipType = window.nextInt();
+		String orientation=window.nextLine();
+		if(shipType==1)
+		{
+			window.println("What row would you like to place your battleship in?");
+			int row=window.nextInt();
+			if(row>=1||row<=10)
+			{
+				window.println("What column would you like to place your battleship in?");
+				int column =window.nextInt();
+				if(column>=1||column<=10)
+				{
+					window.println("Would you like the piece to be vertical? (Y/n)");
+					if(orientation.equals("Y")||orientation.equals("y"))
+					{
+						boolean vertical=true;
+					}else if(orientation.equals("N")||orientation.equals("n"))
+					{
+						boolean vertical=false;
+					}else{
+						window.println("Invalid input. Please enter Y/y or N/n");
+					}
+				}
+			}else{
+				window.println("Invalid row number. Please choose row between 1-10.");
+			}
+		}
+		if(shipType==2)
+		{
+			window.println("What row would you like to place your aircraft carrier in?");
+		}
+		if(shipType==3)
+		{
+			window.println("What row would you like to place your boat in?");
+		}
+		if(shipType==4)
+		{
+			window.println("What row would you like to place your submarine in?");
+		}
+		if(shipType==5)
+		{
+			window.println("What row would you like to place your destroyer in?");
+		}
+		if(!(shipType==1||shipType==2||shipType==3||shipType==4||shipType==5))
+		{
+			window.println("Invalid ship selection. Please enter a number 1-5.");
+		}
 		// now for example, I will add a destroyer for you.
 		// Use simplePlacePiece instead of placeShipPiece
 		window.println("\nAdding a bunch of ships:");
