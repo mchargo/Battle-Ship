@@ -38,6 +38,11 @@ public class BattleShip
 	
 	static class Player
 	{
+		/**
+		 * Put blank tiles into the player's board.
+		 * @param rows How many rows are in the game board?
+		 * @param columns How many cols are in the game board?
+		 */
 		public void initilizeBoard(int rows, int columns)
 		{
 			// create a new board with rows and columns
@@ -52,6 +57,11 @@ public class BattleShip
 			boardColumns = columns;
 		}
 		
+		/**
+		 * Print out the player's board. This
+		 * is a very simple implementation and
+		 * can be changed later.
+		 */
 		public void printboard()
 		{
 			for(int row = 0;row < boardRows;row++)
@@ -66,9 +76,58 @@ public class BattleShip
 			}
 		}
 		
+		/**
+		 * Place the given piece onto the board at row,col
+		 * @param row The row to place the piece at.
+		 * @param col The column to place the piece at.
+		 * @param piece The piece type to place.
+		 */
 		public void placeShipPiece(int row, int col, String piece)
 		{
 			board[row][col] = piece;
+		}
+		
+		/**
+		 * This method will place a piece on the board
+		 * for you so that you don't have to worry about
+		 * where the pieces are supposed to go.
+		 * 
+		 * @param startRow Start row for the piece.
+		 * @param startCol Start column for the piece.
+		 * @param pieceLength How long is the piece?
+		 * @param vertical Is the ship vertical or horizontal?
+		 * @return Whether or not the ship was placed.
+		 */
+		public boolean simplePlacePiece(int startRow, int startCol, 
+				int pieceLength, boolean vertical)
+		{
+			boolean success = true;
+			int row = startRow;
+			int col = startCol;
+
+			try
+			{
+				for(int x = 0;x < pieceLength;x++)
+				{
+					if(!board[row][col].equals(bnone))
+						throw new Exception("Ship Collision Error");
+					
+					if(x == 0) board[row][col] = vertical ? bup : bleft;
+					else if(x == pieceLength - 1) 
+						board[row][col] = vertical ? bdown : bright;
+					else board[row][col] = bhull;
+					
+					if(vertical) row++;
+					else col++;
+				}
+			}catch(Exception e)
+			{
+				// something went wrong?
+				System.out.println("Error placing piece: " + e);
+				success = false;
+			}
+			
+			return success;
 		}
 		
 		private int boardRows;
@@ -93,12 +152,14 @@ public class BattleShip
 		
 		
 		// now for example, I will add a destroyer for you.
-		System.out.println("\nPlaced destroyer:");
-		player1.placeShipPiece(0, 0, bup);
-		player1.placeShipPiece(1, 0, bhull);
-		player1.placeShipPiece(2, 0, bhull);
-		player1.placeShipPiece(3, 0, bhull);
-		player1.placeShipPiece(4, 0, bdown);
+		// Use simplePlacePiece instead of placeShipPiece
+		System.out.println("\nAdding a bunch of ships:");
+		player1.simplePlacePiece(3, 0, battleship, true);
+		player1.simplePlacePiece(5, 5, aircraftCarrier, false);
+		player1.simplePlacePiece(9, 5, boat, false);
+		player1.simplePlacePiece(5, 2, submarine, true);
+		player1.simplePlacePiece(8, 2, destroyer, false);
 		player1.printboard();
+		
 	}
 }
