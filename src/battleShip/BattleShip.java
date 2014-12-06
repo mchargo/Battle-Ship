@@ -189,6 +189,10 @@ public class BattleShip
 			{
 			question1 = "Which row would you like to place your battleship in?";
 			question2 = "Which column would you like to place your battleship in?"; 
+			}else{
+				window.println("You have already placed your battleship. \n"
+						+ "Please select a different ship to place.");
+				continue;
 			}
 			break;
 		case AIRCRAFT_CARRIER:
@@ -196,6 +200,10 @@ public class BattleShip
 			{
 			question1 = "Which row would you like to place your aircraft carrier in?";
 			question2 = "Which column would you like to place your aircraft carrier in?";
+			}else{
+				window.println("You have already placed your aircaft carrier. \n"
+						+ "Please select a different ship to place.");
+				continue;
 			}
 			break;
 		case BOAT:
@@ -203,6 +211,10 @@ public class BattleShip
 			{
 			question1 = "Which row would you like to place your boat in?";
 			question2 = "Which column would you like to place your boat in?";
+			}else{
+				window.println("You have already placed your boat. \n"
+						+ "Please select a different ship to place");
+				continue;
 			}
 			break;
 		case SUBMARINE:
@@ -210,6 +222,10 @@ public class BattleShip
 			{
 			question1 = "Which row would you like to place your submarine in?";
 			question2 = "Which column would you like to place your submarine in?";
+			}else{
+				window.println("You have already placed your submarine. \n"
+						+ "Please select a different ship to place");
+				continue;
 			}
 			break;
 		case DESTROYER:
@@ -217,6 +233,10 @@ public class BattleShip
 			{
 			question1 = "Which row would you like to place your destroyer in?";
 			question2 = "Which column would you like to place your destroyer in?";
+			}else{
+				window.println("You have already placed your destroyer. \n"
+						+ "Please select a different ship to place");
+				continue;
 			}
 			break;
 		default:
