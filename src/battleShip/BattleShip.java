@@ -174,24 +174,24 @@ public class BattleShip
 		switch(shipType)
 		{
 		case BATTLESHIP:
-			question1 = "What row would you like to place your battleship in?";
-			// question2 = 
+			question1 = "Which row would you like to place your battleship in?";
+			question2 = "Which column would you like to place your battleship in?"; 
 			break;
 		case AIRCRAFT_CARRIER:
-			question1 = "What row would you like to place your aircraft carrier in?";
-			// question2 = 
+			question1 = "Which row would you like to place your aircraft carrier in?";
+			question2 = "Which column would you like to place your aircraft carrier in?";
 			break;
 		case BOAT:
-			question1 = "What row would you like to place your boat in?";
-			// question2 = 
+			question1 = "Which row would you like to place your boat in?";
+			question2 = "Which column would you like to place your boat in?";
 			break;
 		case SUBMARINE:
-			question1 = "What row would you like to place your submarine in?";
-			// question2 = 
+			question1 = "Which row would you like to place your submarine in?";
+			question2 = "Which column would you like to place your submarine in?";
 			break;
 		case DESTROYER:
-			question1 = "What row would you like to place your destroyer in?";
-			// question2 = 
+			question1 = "Which row would you like to place your destroyer in?";
+			question2 = "Which column would you like to place your destroyer in?";
 			break;
 		default:
 			window.println("Invalid ship selection. Please enter a number 1-5.");
@@ -199,20 +199,22 @@ public class BattleShip
 
 		window.println(question1);
 		int row=window.nextInt();
+		int column=0;
+		boolean vertical=false;
 		if(row>=1||row<=10)
 		{
 			window.println(question2);
-			int column =window.nextInt();
+			column =window.nextInt();
 			if(column>=1||column<=10)
 			{
 				window.println("Would you like the piece to be vertical? (Y/n)");
 				String orientation=window.nextLine();
 				if(orientation.equals("Y")||orientation.equals("y"))
 				{
-					boolean vertical=true;
+					vertical=true;
 				}else if(orientation.equals("N")||orientation.equals("n"))
 				{
-					boolean vertical=false;
+					vertical=false;
 				}else{
 					window.println("Invalid input. Please enter Y/y or N/n");
 				}
@@ -221,14 +223,7 @@ public class BattleShip
 			window.println("Invalid row number. Please choose row between 1-10.");
 		}
 
-		// now for example, I will add a destroyer for you.
-		// Use simplePlacePiece instead of placeShipPiece
-		window.println("\nAdding a bunch of ships:");
-		player1.simplePlacePiece(3, 0, battleship, true);
-		player1.simplePlacePiece(5, 5, aircraftCarrier, false);
-		player1.simplePlacePiece(9, 5, boat, false);
-		player1.simplePlacePiece(5, 2, submarine, true);
-		player1.simplePlacePiece(8, 2, destroyer, false);
+		player1.simplePlacePiece(row, column, shipType, vertical);
 		player1.printboard();
 
 	}
