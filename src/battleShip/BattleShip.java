@@ -165,33 +165,59 @@ public class BattleShip
 		// lets print the blank board:
 		window.println("Player 1 blank board:");
 		player1.printboard();
-		window.println("Which ship would you like to place? Options: (1) Battleship, (2) Aircraft Carrier, (3) Boat, (4) Submarine, (5) Destroyer");
-		
-		int shipType = window.nextInt() - 1;
 		String question1 = "";
 		String question2 = "";
-
+		boolean shipBattle = true;
+		boolean shipAir = true;
+		boolean shipBoat = true;
+		boolean shipSub = true;
+		boolean shipDest = true;
+		String word1 = "(1) Battleship, ";
+		String word2 = "(2) Aircraft Carrier, ";
+		String word3 = "(3) Boat, ";
+		String word4 = "(4) Submarine, ";
+		String word5 = "(5) Destroyer";
+		while(shipBattle==true||shipAir==true||shipBoat==true||shipSub==true||shipDest==true)
+		{
+			window.println("Which ship would you like to place? Options: \n"
+					+ word1 + word2 + word3  + word4 + word5);
+			int shipType = window.nextInt() - 1;
 		switch(shipType)
 		{
 		case BATTLESHIP:
+			if(shipBattle==true)
+			{
 			question1 = "Which row would you like to place your battleship in?";
 			question2 = "Which column would you like to place your battleship in?"; 
+			}
 			break;
 		case AIRCRAFT_CARRIER:
+			if(shipAir==true)
+			{
 			question1 = "Which row would you like to place your aircraft carrier in?";
 			question2 = "Which column would you like to place your aircraft carrier in?";
+			}
 			break;
 		case BOAT:
+			if(shipBoat==true)
+			{
 			question1 = "Which row would you like to place your boat in?";
 			question2 = "Which column would you like to place your boat in?";
+			}
 			break;
 		case SUBMARINE:
+			if(shipSub==true)
+			{
 			question1 = "Which row would you like to place your submarine in?";
 			question2 = "Which column would you like to place your submarine in?";
+			}
 			break;
 		case DESTROYER:
+			if(shipDest==true)
+			{
 			question1 = "Which row would you like to place your destroyer in?";
 			question2 = "Which column would you like to place your destroyer in?";
+			}
 			break;
 		default:
 			window.println("Invalid ship selection. Please enter a number 1-5.");
@@ -225,6 +251,29 @@ public class BattleShip
 
 		player1.simplePlacePiece(row, column, shipType, vertical);
 		player1.printboard();
-
+		switch(shipType)
+		{
+		case BATTLESHIP:
+			shipBattle = false;
+			word1 = "";
+			break;
+		case AIRCRAFT_CARRIER:
+			shipAir =  false;
+			word2 = "";
+			break;
+		case BOAT:
+			shipBoat = false;
+			word3 = "";
+			break;
+		case SUBMARINE:
+			shipSub = false;
+			word4 = "";
+			break;
+		case DESTROYER:
+			shipDest = false;
+			word5 = "";
+			break;
+		}
+		}
 	}
 }
