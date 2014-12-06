@@ -197,7 +197,6 @@ public class BattleShip
 			window.println("Invalid ship selection. Please enter a number 1-5.");
 		}
 
-
 		window.println(question1);
 		int row=window.nextInt();
 		if(row>=1||row<=10)
