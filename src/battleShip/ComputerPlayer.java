@@ -1,4 +1,5 @@
 package battleShip;
+import java.util.Random;
 
 /**
  * This will implement an artificial
@@ -22,6 +23,7 @@ public final class ComputerPlayer extends Player
 	{
 		super(boardRows, boardColumns);
 		this.difficulty = difficulty;
+		
 	}
 
 	@Override
@@ -33,20 +35,33 @@ public final class ComputerPlayer extends Player
 	@Override
 	public void setupBoard() 
 	{
+		Random random = new Random(System.nanoTime());
 		switch(difficulty)
 		{
 		case EASY:
 			// setup board for an easy computer opponent.
+			int startShip = Board.BATTLESHIP;
+			while(startShip<=4)
+			{
+				int randomCompColumn=random.nextInt(shipBoard.getColumns());
+				int randomCompRow=random.nextInt(shipBoard.getRows());
+				boolean randomVert=random.nextBoolean();
+
+				if(shipBoard.placePiece(randomCompRow, randomCompColumn, startShip, randomVert)==0)
+					startShip++;
+			}
 			break;
 		case MEDIUM:
 			break;
 		case HARD:
 			break;
 		}
+		shipBoard.print(BattleShip.window);
+		
 	}
 
 	private int difficulty; /**< The current difficulty of the ComputerPlayer. */
-	
+
 	public static final int EASY = 0;
 	public static final int MEDIUM = 1;
 	public static final int HARD = 2;
