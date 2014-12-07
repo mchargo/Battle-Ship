@@ -177,6 +177,23 @@ public class Window implements WindowListener
 		}
 	}
 
+	public void clear()
+	{
+		if(Thread.currentThread().getId() == 1) // main thread
+		{
+			area.setText("");
+		}else{
+			// not main thread
+			SwingUtilities.invokeLater(new Runnable()
+			{
+				public void run()
+				{
+					area.setText("");
+				}
+			});
+		}
+	}
+
 	public boolean prompt()
 	{
 		return nextLine().toLowerCase().startsWith("y");
