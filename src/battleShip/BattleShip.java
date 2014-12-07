@@ -1,7 +1,19 @@
 package battleShip;
 
+/**
+ * This BattleShip class will implement
+ * the game BattleShip.
+ * @author john
+ *
+ */
+
 public class BattleShip 
 {
+	/**
+	 * Construct a new BattleShip object.
+	 * @param rows How many rows are in the board?
+	 * @param columns How many columns are in the board?
+	 */
 	public BattleShip(int rows, int columns)
 	{
 		// setup the board specs
@@ -22,7 +34,7 @@ public class BattleShip
 		System.out.println("[ OK ]");
 		
 		System.out.print("Setting up player 2...\t\t");
-		player2 = new HumanPlayer(window, rows, columns);
+		player2 = new ComputerPlayer(rows, columns, ComputerPlayer.EASY);
 		player2.readyPlayer(2);
 		System.out.println("[ OK ]");
 		
@@ -41,6 +53,9 @@ public class BattleShip
 		System.out.println("[ OK ]");
 	}
 	
+	/**
+	 * Lets play the game!
+	 */
 	public void play()
 	{
 		// make sure both players are ready!

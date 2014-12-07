@@ -1,0 +1,241 @@
+\hypertarget{classbattleShip_1_1Board}{\section{battle\-Ship.\-Board Class Reference}
+\label{classbattleShip_1_1Board}\index{battle\-Ship.\-Board@{battle\-Ship.\-Board}}
+}
+
+
+This class is a template for a \hyperlink{classbattleShip_1_1Board}{Board} object.  
+
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classbattleShip_1_1Board_ab29903dca128c549a04ef1bd8a03e284}{Board} (int rows, int columns)
+\begin{DoxyCompactList}\small\item\em Create a new \hyperlink{classbattleShip_1_1Board}{Board} object with the specified amount of rows and columns. \end{DoxyCompactList}\item 
+void \hyperlink{classbattleShip_1_1Board_a37632e4b600f3bcb1b196c90d7371a62}{print} (\hyperlink{classbattleShip_1_1Window}{Window} window)
+\begin{DoxyCompactList}\small\item\em Print the board out to a window. \end{DoxyCompactList}\item 
+int \hyperlink{classbattleShip_1_1Board_a7f3ee785960f0a29eb066a0cc76e925b}{place\-Piece} (int start\-Row, int start\-Col, int ship\-Code, boolean vertical)
+\begin{DoxyCompactList}\small\item\em Places the piece on the board. \end{DoxyCompactList}\item 
+\hypertarget{classbattleShip_1_1Board_aa6205fe92d7e29d281c383f5e57384ad}{int {\bfseries get\-Columns} ()}\label{classbattleShip_1_1Board_aa6205fe92d7e29d281c383f5e57384ad}
+
+\item 
+\hypertarget{classbattleShip_1_1Board_aec4594650e89c01f94f43851d81ea887}{int {\bfseries get\-Rows} ()}\label{classbattleShip_1_1Board_aec4594650e89c01f94f43851d81ea887}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static final char \hyperlink{classbattleShip_1_1Board_a1182aaa1c9965e82514001411e92deda}{bup} = '$^\wedge$'
+\begin{DoxyCompactList}\small\item\em Up symbol for a ship. \end{DoxyCompactList}\item 
+static final char \hyperlink{classbattleShip_1_1Board_a0fdd0fa1e2c590cccc27daf05aa9cf6b}{bdown} = 'v'
+\begin{DoxyCompactList}\small\item\em Down symbol for a ship. \end{DoxyCompactList}\item 
+static final char \hyperlink{classbattleShip_1_1Board_a9d97dd87cddd014a15af04801920d50e}{bright} = '$>$'
+\begin{DoxyCompactList}\small\item\em Right symbol for a ship. \end{DoxyCompactList}\item 
+static final char \hyperlink{classbattleShip_1_1Board_a6db9e34520009f40729eb730ee6cb509}{bleft} = '$<$'
+\begin{DoxyCompactList}\small\item\em Left symbol for a ship. \end{DoxyCompactList}\item 
+static final char \hyperlink{classbattleShip_1_1Board_a73ed34c95d608cdb748ff950841307d7}{bhull} = '$\ast$'
+\begin{DoxyCompactList}\small\item\em Hull symbol for a ship. \end{DoxyCompactList}\item 
+static final char \hyperlink{classbattleShip_1_1Board_a46a888460556cbefb33d9cb048a610fc}{hit} = 'X'
+\begin{DoxyCompactList}\small\item\em Hit symbol. \end{DoxyCompactList}\item 
+static final char \hyperlink{classbattleShip_1_1Board_a8c0a9cd8bd0c3829c01dccd8466c8ee6}{miss} = 'o'
+\begin{DoxyCompactList}\small\item\em Miss symbol. \end{DoxyCompactList}\item 
+static final char \hyperlink{classbattleShip_1_1Board_ae9d384309243340b7daf402ab99175df}{bnone} = ' '
+\begin{DoxyCompactList}\small\item\em Empty spot symbol. \end{DoxyCompactList}\item 
+static final int\mbox{[}$\,$\mbox{]} \hyperlink{classbattleShip_1_1Board_acc89eea78f07c10949b4c93b5fb14503}{S\-H\-I\-P\-\_\-\-L\-E\-N\-G\-T\-H\-S} = new int\mbox{[}$\,$\mbox{]}\{4, 5, 2, 3, 3\}
+\begin{DoxyCompactList}\small\item\em Array that represents how many pieces each ship has. \end{DoxyCompactList}\item 
+\hypertarget{classbattleShip_1_1Board_a705ebad65889b48bd3bf380c71eda867}{static final int {\bfseries B\-A\-T\-T\-L\-E\-S\-H\-I\-P} = 0}\label{classbattleShip_1_1Board_a705ebad65889b48bd3bf380c71eda867}
+
+\item 
+\hypertarget{classbattleShip_1_1Board_a330ba82967aa6f646117eb23c145da14}{static final int {\bfseries A\-I\-R\-C\-R\-A\-F\-T\-\_\-\-C\-A\-R\-R\-I\-E\-R} = 1}\label{classbattleShip_1_1Board_a330ba82967aa6f646117eb23c145da14}
+
+\item 
+\hypertarget{classbattleShip_1_1Board_a773c153a91ebae98080a11124ea119b1}{static final int {\bfseries B\-O\-A\-T} = 2}\label{classbattleShip_1_1Board_a773c153a91ebae98080a11124ea119b1}
+
+\item 
+\hypertarget{classbattleShip_1_1Board_af401e7c0785ccc50d283688cc4545228}{static final int {\bfseries S\-U\-B\-M\-A\-R\-I\-N\-E} = 3}\label{classbattleShip_1_1Board_af401e7c0785ccc50d283688cc4545228}
+
+\item 
+\hypertarget{classbattleShip_1_1Board_a4f2e9c31a8afab6a91986fa3615e3550}{static final int {\bfseries D\-E\-S\-T\-R\-O\-Y\-E\-R} = 4}\label{classbattleShip_1_1Board_a4f2e9c31a8afab6a91986fa3615e3550}
+
+\item 
+\hypertarget{classbattleShip_1_1Board_a4c732a22f6cc05fc1bf327c3ba868aa1}{static final int {\bfseries S\-H\-I\-P\-\_\-\-C\-O\-L\-L\-I\-S\-I\-O\-N\-\_\-\-E\-R\-R\-O\-R} = 1}\label{classbattleShip_1_1Board_a4c732a22f6cc05fc1bf327c3ba868aa1}
+
+\item 
+\hypertarget{classbattleShip_1_1Board_ad992fde1451779831ae9b654e1f158d0}{static final int {\bfseries S\-H\-I\-P\-\_\-\-O\-F\-F\-\_\-\-O\-F\-\_\-\-B\-O\-A\-R\-D\-\_\-\-E\-R\-R\-O\-R} = 2}\label{classbattleShip_1_1Board_ad992fde1451779831ae9b654e1f158d0}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class is a template for a \hyperlink{classbattleShip_1_1Board}{Board} object. 
+
+Every board is represented by a 2\-D array of chars. The value at each cell determines which character gets printed out.
+
+Use print\-Board() to print out the board to a window.
+
+Use \hyperlink{classbattleShip_1_1Board_a7f3ee785960f0a29eb066a0cc76e925b}{place\-Piece()} to place a piece on the board. The return value determines the success or failure of the operation. \begin{DoxyAuthor}{Author}
+John Detter\href{mailto:john@detter.com}{\tt john@detter.\-com} 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classbattleShip_1_1Board_ab29903dca128c549a04ef1bd8a03e284}{\index{battle\-Ship\-::\-Board@{battle\-Ship\-::\-Board}!Board@{Board}}
+\index{Board@{Board}!battleShip::Board@{battle\-Ship\-::\-Board}}
+\subsubsection[{Board}]{\setlength{\rightskip}{0pt plus 5cm}battle\-Ship.\-Board.\-Board (
+\begin{DoxyParamCaption}
+\item[{int}]{rows, }
+\item[{int}]{columns}
+\end{DoxyParamCaption}
+)}}\label{classbattleShip_1_1Board_ab29903dca128c549a04ef1bd8a03e284}
+
+
+Create a new \hyperlink{classbattleShip_1_1Board}{Board} object with the specified amount of rows and columns. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rows} & How many rows the board should have. \\
+\hline
+{\em columns} & How many columns the board should have. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classbattleShip_1_1Board_a7f3ee785960f0a29eb066a0cc76e925b}{\index{battle\-Ship\-::\-Board@{battle\-Ship\-::\-Board}!place\-Piece@{place\-Piece}}
+\index{place\-Piece@{place\-Piece}!battleShip::Board@{battle\-Ship\-::\-Board}}
+\subsubsection[{place\-Piece}]{\setlength{\rightskip}{0pt plus 5cm}int battle\-Ship.\-Board.\-place\-Piece (
+\begin{DoxyParamCaption}
+\item[{int}]{start\-Row, }
+\item[{int}]{start\-Col, }
+\item[{int}]{ship\-Code, }
+\item[{boolean}]{vertical}
+\end{DoxyParamCaption}
+)}}\label{classbattleShip_1_1Board_a7f3ee785960f0a29eb066a0cc76e925b}
+
+
+Places the piece on the board. 
+
+This method must be given one coordinate (starting coordinate), the ship code of the ship that is supposed to be placed and whether or not the ship is vertical.
+
+For example, place\-Piece(0, 0, A\-I\-R\-C\-R\-A\-F\-T\-\_\-\-C\-A\-R\-R\-I\-E\-R, false) would produce\-:
+
+\&lt $\ast$ $\ast$ $\ast$ \&gt
+
+Where the coordinate of '\&lt' is (start\-Row, start\-Col)
+
+
+\begin{DoxyParams}{Parameters}
+{\em start\-Row} & The start row of the placement. \\
+\hline
+{\em start\-Col} & The start column of the placement. \\
+\hline
+{\em ship\-Code} & The code that is mapped to the ship type. \\
+\hline
+{\em vertical} & Whether or not the ship should be placed vertical. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The error code, 0 if everything is okay. 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See Also}
+S\-H\-I\-P\-\_\-\-C\-O\-L\-L\-I\-S\-I\-O\-N\-\_\-\-E\-R\-R\-O\-R 
+
+S\-H\-I\-P\-\_\-\-O\-F\-F\-\_\-\-O\-F\-\_\-\-B\-O\-A\-R\-D\-\_\-\-E\-R\-R\-O\-R 
+\end{DoxySeeAlso}
+\hypertarget{classbattleShip_1_1Board_a37632e4b600f3bcb1b196c90d7371a62}{\index{battle\-Ship\-::\-Board@{battle\-Ship\-::\-Board}!print@{print}}
+\index{print@{print}!battleShip::Board@{battle\-Ship\-::\-Board}}
+\subsubsection[{print}]{\setlength{\rightskip}{0pt plus 5cm}void battle\-Ship.\-Board.\-print (
+\begin{DoxyParamCaption}
+\item[{{\bf Window}}]{window}
+\end{DoxyParamCaption}
+)}}\label{classbattleShip_1_1Board_a37632e4b600f3bcb1b196c90d7371a62}
+
+
+Print the board out to a window. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em window} & The window to print to. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classbattleShip_1_1Board_a0fdd0fa1e2c590cccc27daf05aa9cf6b}{\index{battle\-Ship\-::\-Board@{battle\-Ship\-::\-Board}!bdown@{bdown}}
+\index{bdown@{bdown}!battleShip::Board@{battle\-Ship\-::\-Board}}
+\subsubsection[{bdown}]{\setlength{\rightskip}{0pt plus 5cm}final char battle\-Ship.\-Board.\-bdown = 'v'\hspace{0.3cm}{\ttfamily [static]}}}\label{classbattleShip_1_1Board_a0fdd0fa1e2c590cccc27daf05aa9cf6b}
+
+
+Down symbol for a ship. 
+
+\hypertarget{classbattleShip_1_1Board_a73ed34c95d608cdb748ff950841307d7}{\index{battle\-Ship\-::\-Board@{battle\-Ship\-::\-Board}!bhull@{bhull}}
+\index{bhull@{bhull}!battleShip::Board@{battle\-Ship\-::\-Board}}
+\subsubsection[{bhull}]{\setlength{\rightskip}{0pt plus 5cm}final char battle\-Ship.\-Board.\-bhull = '$\ast$'\hspace{0.3cm}{\ttfamily [static]}}}\label{classbattleShip_1_1Board_a73ed34c95d608cdb748ff950841307d7}
+
+
+Hull symbol for a ship. 
+
+\hypertarget{classbattleShip_1_1Board_a6db9e34520009f40729eb730ee6cb509}{\index{battle\-Ship\-::\-Board@{battle\-Ship\-::\-Board}!bleft@{bleft}}
+\index{bleft@{bleft}!battleShip::Board@{battle\-Ship\-::\-Board}}
+\subsubsection[{bleft}]{\setlength{\rightskip}{0pt plus 5cm}final char battle\-Ship.\-Board.\-bleft = '$<$'\hspace{0.3cm}{\ttfamily [static]}}}\label{classbattleShip_1_1Board_a6db9e34520009f40729eb730ee6cb509}
+
+
+Left symbol for a ship. 
+
+\hypertarget{classbattleShip_1_1Board_ae9d384309243340b7daf402ab99175df}{\index{battle\-Ship\-::\-Board@{battle\-Ship\-::\-Board}!bnone@{bnone}}
+\index{bnone@{bnone}!battleShip::Board@{battle\-Ship\-::\-Board}}
+\subsubsection[{bnone}]{\setlength{\rightskip}{0pt plus 5cm}final char battle\-Ship.\-Board.\-bnone = ' '\hspace{0.3cm}{\ttfamily [static]}}}\label{classbattleShip_1_1Board_ae9d384309243340b7daf402ab99175df}
+
+
+Empty spot symbol. 
+
+\hypertarget{classbattleShip_1_1Board_a9d97dd87cddd014a15af04801920d50e}{\index{battle\-Ship\-::\-Board@{battle\-Ship\-::\-Board}!bright@{bright}}
+\index{bright@{bright}!battleShip::Board@{battle\-Ship\-::\-Board}}
+\subsubsection[{bright}]{\setlength{\rightskip}{0pt plus 5cm}final char battle\-Ship.\-Board.\-bright = '$>$'\hspace{0.3cm}{\ttfamily [static]}}}\label{classbattleShip_1_1Board_a9d97dd87cddd014a15af04801920d50e}
+
+
+Right symbol for a ship. 
+
+\hypertarget{classbattleShip_1_1Board_a1182aaa1c9965e82514001411e92deda}{\index{battle\-Ship\-::\-Board@{battle\-Ship\-::\-Board}!bup@{bup}}
+\index{bup@{bup}!battleShip::Board@{battle\-Ship\-::\-Board}}
+\subsubsection[{bup}]{\setlength{\rightskip}{0pt plus 5cm}final char battle\-Ship.\-Board.\-bup = '$^\wedge$'\hspace{0.3cm}{\ttfamily [static]}}}\label{classbattleShip_1_1Board_a1182aaa1c9965e82514001411e92deda}
+
+
+Up symbol for a ship. 
+
+\hypertarget{classbattleShip_1_1Board_a46a888460556cbefb33d9cb048a610fc}{\index{battle\-Ship\-::\-Board@{battle\-Ship\-::\-Board}!hit@{hit}}
+\index{hit@{hit}!battleShip::Board@{battle\-Ship\-::\-Board}}
+\subsubsection[{hit}]{\setlength{\rightskip}{0pt plus 5cm}final char battle\-Ship.\-Board.\-hit = 'X'\hspace{0.3cm}{\ttfamily [static]}}}\label{classbattleShip_1_1Board_a46a888460556cbefb33d9cb048a610fc}
+
+
+Hit symbol. 
+
+\hypertarget{classbattleShip_1_1Board_a8c0a9cd8bd0c3829c01dccd8466c8ee6}{\index{battle\-Ship\-::\-Board@{battle\-Ship\-::\-Board}!miss@{miss}}
+\index{miss@{miss}!battleShip::Board@{battle\-Ship\-::\-Board}}
+\subsubsection[{miss}]{\setlength{\rightskip}{0pt plus 5cm}final char battle\-Ship.\-Board.\-miss = 'o'\hspace{0.3cm}{\ttfamily [static]}}}\label{classbattleShip_1_1Board_a8c0a9cd8bd0c3829c01dccd8466c8ee6}
+
+
+Miss symbol. 
+
+\hypertarget{classbattleShip_1_1Board_acc89eea78f07c10949b4c93b5fb14503}{\index{battle\-Ship\-::\-Board@{battle\-Ship\-::\-Board}!S\-H\-I\-P\-\_\-\-L\-E\-N\-G\-T\-H\-S@{S\-H\-I\-P\-\_\-\-L\-E\-N\-G\-T\-H\-S}}
+\index{S\-H\-I\-P\-\_\-\-L\-E\-N\-G\-T\-H\-S@{S\-H\-I\-P\-\_\-\-L\-E\-N\-G\-T\-H\-S}!battleShip::Board@{battle\-Ship\-::\-Board}}
+\subsubsection[{S\-H\-I\-P\-\_\-\-L\-E\-N\-G\-T\-H\-S}]{\setlength{\rightskip}{0pt plus 5cm}final int \mbox{[}$\,$\mbox{]} battle\-Ship.\-Board.\-S\-H\-I\-P\-\_\-\-L\-E\-N\-G\-T\-H\-S = new int\mbox{[}$\,$\mbox{]}\{4, 5, 2, 3, 3\}\hspace{0.3cm}{\ttfamily [static]}}}\label{classbattleShip_1_1Board_acc89eea78f07c10949b4c93b5fb14503}
+
+
+Array that represents how many pieces each ship has. 
+
+\begin{DoxySeeAlso}{See Also}
+B\-A\-T\-T\-L\-E\-S\-H\-I\-P 
+
+A\-I\-R\-C\-R\-A\-F\-T\-\_\-\-C\-A\-R\-R\-I\-E\-R 
+
+B\-O\-A\-T 
+
+S\-U\-B\-M\-A\-R\-I\-N\-E 
+
+D\-E\-S\-T\-R\-O\-Y\-E\-R 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/home/john/\-Workspaces/\-Java/\-Battle-\/\-Ship/src/battle\-Ship/Board.\-java\end{DoxyCompactItemize}

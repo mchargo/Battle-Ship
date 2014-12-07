@@ -4,7 +4,7 @@ package battleShip;
  * This class represents a HumanPlayer that
  * can play from a Window.
  * 
- * @author john
+ * @author John Detter<john@detter.com>
  *
  */
 
@@ -30,7 +30,6 @@ public final class HumanPlayer extends Player
 	 */
 	public void promptForName(int player)
 	{
-		window.clear();
 		window.println("Player " + player + " name: ");
 		name = window.nextLine();
 	}
@@ -210,6 +209,9 @@ public final class HumanPlayer extends Player
 
 		// we are ready to play now.
 		ready = true;
+		
+		// hide our board configuration!
+		window.clear();
 	}
 
 	private Window window; /**< Window that should be used for user io. */ 

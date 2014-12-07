@@ -1,0 +1,13 @@
+var searchData=
+[
+  ['battleship',['BattleShip',['../classbattleShip_1_1BattleShip.html',1,'battleShip']]],
+  ['battleship',['BattleShip',['../classbattleShip_1_1BattleShip.html#a1f66570b4684f41b7e2e75cc0ee1a50a',1,'battleShip::BattleShip']]],
+  ['bdown',['bdown',['../classbattleShip_1_1Board.html#a0fdd0fa1e2c590cccc27daf05aa9cf6b',1,'battleShip::Board']]],
+  ['bhull',['bhull',['../classbattleShip_1_1Board.html#a73ed34c95d608cdb748ff950841307d7',1,'battleShip::Board']]],
+  ['bleft',['bleft',['../classbattleShip_1_1Board.html#a6db9e34520009f40729eb730ee6cb509',1,'battleShip::Board']]],
+  ['bnone',['bnone',['../classbattleShip_1_1Board.html#ae9d384309243340b7daf402ab99175df',1,'battleShip::Board']]],
+  ['board',['Board',['../classbattleShip_1_1Board.html#ab29903dca128c549a04ef1bd8a03e284',1,'battleShip::Board']]],
+  ['board',['Board',['../classbattleShip_1_1Board.html',1,'battleShip']]],
+  ['bright',['bright',['../classbattleShip_1_1Board.html#a9d97dd87cddd014a15af04801920d50e',1,'battleShip::Board']]],
+  ['bup',['bup',['../classbattleShip_1_1Board.html#a1182aaa1c9965e82514001411e92deda',1,'battleShip::Board']]]
+];
