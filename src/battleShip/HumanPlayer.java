@@ -27,6 +27,7 @@ public final class HumanPlayer extends Player
 	/**
 	 * This will use the Window to get
 	 * the player's name.
+	 * @author mchargo <mike.chargo@sbcglobal.net>
 	 */
 	public void promptForName(int player)
 	{
@@ -37,6 +38,8 @@ public final class HumanPlayer extends Player
 	/**
 	 * Ask the player for their ship board
 	 * configuration.
+	 * 
+	 * @author mchargo <mike.chargo@sbcglobal.net>
 	 */
 	public void setupBoard()
 	{

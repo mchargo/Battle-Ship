@@ -15,6 +15,7 @@ import java.util.Arrays;
  * Use placePiece() to place a piece on
  * the board. The return value determines
  * the success or failure of the operation.
+ * 
  * @author John Detter<john@detter.com>
  *
  */
