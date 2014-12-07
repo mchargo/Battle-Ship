@@ -29,7 +29,7 @@ public class BattleShip
 	public void setupPlayers()
 	{
 		System.out.print("Setting up player 1...\t\t");
-		player1 = new ComputerPlayer(rows, columns, ComputerPlayer.EASY);
+		player1 = new HumanPlayer(window, rows, columns);
 		player1.readyPlayer(1);
 		System.out.println("[ OK ]");
 		

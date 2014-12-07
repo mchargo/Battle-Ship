@@ -56,8 +56,7 @@ public final class ComputerPlayer extends Player
 		case HARD:
 			break;
 		}
-		shipBoard.print(BattleShip.window);
-		
+		ready = true;
 	}
 
 	private int difficulty; /**< The current difficulty of the ComputerPlayer. */
