@@ -65,10 +65,13 @@ public class BattleShip
 	public int tryGuess(int row, int column, Player player)
 	{
 		Board shipBoard;
+		Player opponent;
 		if(player == player1)
 		{
+			opponent = player2;
 			shipBoard = player2.getShipBoard();
 		}else{
+			opponent = player1;
 			shipBoard = player1.getShipBoard();
 		}
 
@@ -78,6 +81,12 @@ public class BattleShip
 		{
 		case GUESS_HIT:
 			player.getGuessBoard().placeGuess(row, column, Board.hit);
+			String result = shipBoard.checkSunkenShips();
+
+			if(!result.equals(""))
+				player.setNotification(
+						player.getName() + " sunk " 
+								+ opponent.getName() + "'s " + result);
 			break;
 		case GUESS_MISS:
 			player.getGuessBoard().placeGuess(row, column, Board.miss);
@@ -109,7 +118,7 @@ public class BattleShip
 				window.println(player2.getName() + ", it is your turn!");
 				player2.myTurn();
 				gameOver=player1.getShipBoard().gameOver();
-				
+
 				if(gameOver)
 				{
 					window.println("Congrats " + player2.getName() + ", you have conquered " + player1.getName());

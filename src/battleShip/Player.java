@@ -23,6 +23,7 @@ public abstract class Player
 		shipBoard = new Board(boardRows, boardColumns);
 		name = "";
 		ready = false;
+		notification = "";
 	}
 	
 	/**
@@ -76,6 +77,16 @@ public abstract class Player
 	public abstract void promptForName(int player);
 
 	/**
+	 * Set's the player's current notification.
+	 * "" means no notification.
+	 * @param message the message to set.
+	 */
+	public void setNotification(String message)
+	{
+		this.notification = message;
+	}
+	
+	/**
 	 * Allow the player to place their pieces
 	 * on the game board.
 	 */
@@ -89,5 +100,6 @@ public abstract class Player
 	protected Board shipBoard;/**< This board is used to show the placement of the user's ships.*/
 	protected String name; /**< The name of the player.*/
 	protected boolean ready; /**< Whether or not the player is ready to play. */
+	protected String notification; /**< A message that should be printed at the beginning of a player's turn.*/
 }
 

@@ -44,6 +44,9 @@ public final class HumanPlayer extends Player
 		{
 			shipBoard.print(window);
 			guessBoard.print(window);
+			if(!notification.equals(""))
+				window.println(notification);
+			notification = "";
 			window.println("Which row would you like to guess?");
 			int playerRowGuess=window.nextInt() - 1;
 			window.println("Which column would you like to guess?");
@@ -52,6 +55,7 @@ public final class HumanPlayer extends Player
 			while(colInput.equals(""))
 			{
 				colInput = window.nextLine().toLowerCase();
+				if(colInput.equals("")) continue;
 				playerColGuess = colInput.charAt(0) - 'a';
 				if(playerColGuess < 0) colInput = "";
 			}
@@ -177,6 +181,7 @@ public final class HumanPlayer extends Player
 				while(colInput.equals(""))
 				{
 					colInput = window.nextLine().toLowerCase();
+					if(colInput.equals("")) continue;
 					column = colInput.charAt(0) - 'a';
 					if(column < 0) colInput = "";
 				}

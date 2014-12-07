@@ -1,6 +1,7 @@
 package battleShip;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 
 /**
  * This class is a template for a Board
@@ -39,8 +40,9 @@ public class Board
 
 		boardRows = rows;
 		boardColumns = columns;
+		ships = new LinkedList<Ship>();
 	}
-	
+
 	/**
 	 * Print the board out to a window.
 	 * @param window The window to print to.
@@ -100,7 +102,8 @@ public class Board
 		if(errorCode != 0) return errorCode; // not valid.
 
 		int pieceLength = SHIP_LENGTHS[shipCode];
-
+		ships.add(new Ship(pieceLength, startRow, startCol, vertical, SHIP_NAMES[shipCode]));
+		
 		for(int x = 0;x < pieceLength;x++)
 		{
 			if(x == 0) board[startRow][startCol] = vertical ? bup : bleft;
@@ -133,7 +136,7 @@ public class Board
 		try
 		{
 			int shipLength = SHIP_LENGTHS[shipCode];
-			
+
 			for(int x = 0;x < shipLength;x++)
 			{
 				// test currentPosition
@@ -149,7 +152,7 @@ public class Board
 
 		return 0; // no error!
 	}
-	
+
 	/**
 	 * Checks whether or not the game is over
 	 * based on the current pieces.
@@ -166,6 +169,41 @@ public class Board
 		return true;
 	}
 	
+	/**
+	 * Checks to see if any ships have been
+	 * sunked since the last hit.
+	 * @return The sunken ship.
+	 */
+	public String checkSunkenShips()
+	{
+		for(Ship ship : ships)
+		{
+			if(ship.isSunk()) continue;
+			int row = ship.getRow();
+			int col = ship.getCol();
+			
+			boolean complete = false;
+			
+			for(int x = 0;x < ship.getLength();x++)
+			{
+				complete = false;
+				if(board[row][col] != hit) break;
+				
+				if(ship.isVertical()) row++;
+				else col++;
+				complete = true;
+			}
+			
+			if(complete)
+			{
+				ship.setSunk(true);
+				return ship.getName();
+			}
+		}
+		
+		return "";
+	}
+
 	/**
 	 * Try a guess at the given row and column.
 	 * @param guessRow The guess row.
@@ -193,12 +231,13 @@ public class Board
 			return BattleShip.GUESS_INVALID;
 		}
 	}
-	
+
 	public void placeGuess(int row, int column, char piece)
 	{
 		board[row][column] = piece;
 	}
-	
+
+	private LinkedList<Ship> ships;
 	public int getColumns() {return boardColumns;}
 	public int getRows() {return boardRows;}
 
@@ -225,6 +264,14 @@ public class Board
 	 * @see DESTROYER
 	 */
 	public static final int[] SHIP_LENGTHS = new int[]{4, 5, 2, 3, 3};
+
+	public static final String[] SHIP_NAMES = new String[]{
+		"Battle Ship",
+		"Aircraft Carrier",
+		"Boat",
+		"Submarine",
+		"Destroyer"
+	};
 
 	// (1) Battleship, (2) Aircraft Carrier, (3) Boat, (4) Submarine, (5) Destroyer
 	public static final int BATTLESHIP = 0;
