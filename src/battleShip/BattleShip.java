@@ -315,6 +315,11 @@ public class BattleShip
 			player2.simplePlacePiece(row, column, shipType, vertical);
 			player2.printboard();
 		}
+		if(shipBattle==false&shipAir==false&shipBoat==false&shipSub==false&shipDest==false)
+		{
+		playerTurn++;
+		}
+		
 		}
 		
 	}
