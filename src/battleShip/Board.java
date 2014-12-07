@@ -130,10 +130,10 @@ public class Board
 	private int testPiecePlacement(int startRow, int startCol, 
 			int shipCode, boolean vertical)
 	{
-		int shipLength = SHIP_LENGTHS[shipCode];
-
 		try
 		{
+			int shipLength = SHIP_LENGTHS[shipCode];
+			
 			for(int x = 0;x < shipLength;x++)
 			{
 				// test currentPosition
