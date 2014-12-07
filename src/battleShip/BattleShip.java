@@ -303,12 +303,12 @@ public class BattleShip
 				
 				if(errorCode == 1)
 				{
-					window.println("<SHIP COLLISION COMPLAINT>");
+					window.println("Already have placed ship here. Please place current ship elsewhere.");
 				}else if(errorCode == 2)
 				{
-					window.println("<PIECE OFF OF BOARD ERROR>");
+					window.println("Oops! Looks like you tried placing your ship off the board. Please try again.");
 				}else{
-					window.println("<PIECE WAS PLACED>");
+					window.println("");
 				}
 				printboard();
 			}
