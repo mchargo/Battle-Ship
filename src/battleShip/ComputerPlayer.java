@@ -35,7 +35,19 @@ public final class ComputerPlayer extends Player
 	@Override
 	public void myTurn()
 	{
-		
+		Random random = new Random(System.nanoTime());
+		switch(difficulty)
+		{
+		case EASY:
+			int compGuessRow=random.nextInt();
+			int compGuessCol=random.nextInt();
+			
+			break;
+		case MEDIUM:
+			break;
+		case HARD:
+			break;
+		}
 	}
 
 	@Override
