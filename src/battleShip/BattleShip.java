@@ -29,7 +29,7 @@ public class BattleShip
 	public void setupPlayers()
 	{
 		System.out.print("Setting up player 1...\t\t");
-		player1 = new ComputerPlayer(this, rows, columns, ComputerPlayer.EASY);
+		player1 = new HumanPlayer(this, window, rows, columns);
 		player1.readyPlayer(1);
 		System.out.println("[ OK ]");
 
@@ -98,28 +98,32 @@ public class BattleShip
 		boolean gameOver=false;
 		while(gameOver==false)
 		{
-			// player 1 gets to go
 			window.println(player1.getName() + ", it is your turn!");
 			player1.myTurn();
 			gameOver=player2.getShipBoard().gameOver();
 
-			// did player 1 win?
 			if(gameOver)
 			{
-				// player 1 has won!
-				
+				window.println("Congrats " + player1.getName() + ", you have conquered " + player2.getName());
 			}else{
-				// player 2 gets to go!
-				
 				window.println(player2.getName() + ", it is your turn!");
 				player2.myTurn();
 				gameOver=player1.getShipBoard().gameOver();
 				
 				if(gameOver)
 				{
-					// player 2 has won!!
+					window.println("Congrats " + player2.getName() + ", you have conquered " + player1.getName());
 				}
 			}
+		}
+		window.println("Would you like to play again? (Y/n)");
+		if(window.prompt())
+		{
+			BattleShip newGame=new BattleShip(10, 10);
+			newGame.setupPlayers();
+			newGame.play();
+		}else{
+			window.println("Thanks for playing! Hope you play again!");
 		}
 	}
 

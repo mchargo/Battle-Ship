@@ -42,6 +42,7 @@ public final class HumanPlayer extends Player
 		boolean playerTurn=true;
 		while(playerTurn==true)
 		{
+			guessBoard.print(window);
 			window.println("Which row would you like to guess?");
 			int playerRowGuess=window.nextInt();
 			window.println("Which column would you like to guess?");
