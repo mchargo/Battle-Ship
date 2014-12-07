@@ -62,6 +62,7 @@ public final class ComputerPlayer extends Player
 		case HARD:
 			break;
 		}
+		
 		ready = true;
 	}
 

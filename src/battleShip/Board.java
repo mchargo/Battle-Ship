@@ -150,6 +150,50 @@ public class Board
 		return 0; // no error!
 	}
 	
+	/**
+	 * Checks whether or not the game is over
+	 * based on the current pieces.
+	 * @return Whether or not the game is over.
+	 */
+	public boolean gameOver()
+	{
+		for(int row = 0;row < boardRows;row++)
+			for(int column = 0;column < boardColumns;column++)
+				if(board[row][column] != miss
+				&& board[row][column] != bnone
+				&& board[row][column] != hit)
+					return false;
+		return true;
+	}
+	
+	/**
+	 * Try a guess at the given row and column.
+	 * @param guessRow The guess row.
+	 * @param guessCol The guess column.
+	 * @return The guess code.
+	 * @see GUESS_MISS
+	 * @see GUESS_HIT
+	 * @see GUESS_INVALID
+	 */
+	public int guess(int guessRow, int guessCol)
+	{
+		try
+		{
+			if(board[guessRow][guessCol] != bnone &&
+					board[guessRow][guessCol] != miss) 
+			{
+				board[guessRow][guessCol] = miss;
+				return BattleShip.GUESS_MISS;
+			}else {
+				board[guessRow][guessCol] = hit;
+				return BattleShip.GUESS_HIT;
+			}
+		}catch(Exception e)
+		{
+			return BattleShip.GUESS_INVALID;
+		}
+	}
+	
 	public int getColumns() {return boardColumns;}
 	public int getRows() {return boardRows;}
 

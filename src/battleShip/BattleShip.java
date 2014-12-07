@@ -54,6 +54,28 @@ public class BattleShip
 	}
 	
 	/**
+	 * When a player is ready to guess, they will
+	 * call this method so they can either get a
+	 * hit or a miss.
+	 * 
+	 * @param row The row we are trying to guess.
+	 * @param column The column we are trying to guess
+	 * @param player The player that is guessing.
+	 */
+	public int tryGuess(int row, int column, Player player)
+	{
+		Board shipBoard;
+		if(player == player1)
+		{
+			shipBoard = player2.getShipBoard();
+		}else{
+			shipBoard = player1.getShipBoard();
+		}
+		
+		return shipBoard.guess(row, column);
+	}
+	
+	/**
 	 * Lets play the game!
 	 */
 	public void play()
@@ -71,6 +93,10 @@ public class BattleShip
 	
 	public static Window window;
 
+	public static final int GUESS_MISS = 0;
+	public static final int GUESS_HIT = 1;
+	public static final int GUESS_INVALID = 2;
+	
 	/**
 	 * This is the entry point of our program!
 	 * @param args Program arguments

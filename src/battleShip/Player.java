@@ -43,6 +43,15 @@ public abstract class Player
 	}
 	
 	/**
+	 * Returns the board with all of the ships on it.
+	 * @return The ship board.
+	 */
+	public Board getShipBoard()
+	{
+		return shipBoard;
+	}
+	
+	/**
 	 * Call this when it is the player's turn
 	 * to go in the game
 	 */
