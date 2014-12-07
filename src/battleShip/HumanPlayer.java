@@ -39,7 +39,32 @@ public final class HumanPlayer extends Player
 	@Override
 	public void myTurn()
 	{
-		
+		boolean playerTurn=true;
+		while(playerTurn==true)
+		{
+			window.println("Which row would you like to guess?");
+			int playerRowGuess=window.nextInt();
+			window.println("Which column would you like to guess?");
+			String colInput = "";
+			int playerColGuess=0;
+			while(colInput.equals(""))
+			{
+				colInput = window.nextLine().toLowerCase();
+				playerColGuess = colInput.charAt(0) - 'a';
+				if(playerColGuess < 0) colInput = "";
+			}
+			int playerGuess=game.tryGuess(playerRowGuess, playerColGuess, this);
+			if(playerGuess==BattleShip.GUESS_INVALID)
+			{
+				playerTurn=true;
+			}else if(playerGuess==BattleShip.GUESS_HIT){
+				window.println("Congrats! You got a hit!");
+				playerTurn=false;
+			}else if(playerGuess==BattleShip.GUESS_MISS){
+				window.println("I'm sorry! You missed!");
+				playerTurn=false;
+			}
+		}
 	}
 
 	/**

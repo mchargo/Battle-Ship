@@ -23,7 +23,7 @@ public final class ComputerPlayer extends Player
 	{
 		super(game, boardRows, boardColumns);
 		this.difficulty = difficulty;
-		
+
 	}
 
 	@Override
@@ -31,17 +31,32 @@ public final class ComputerPlayer extends Player
 	{
 		name = "Computer Player";
 	}
-	
+
 	@Override
 	public void myTurn()
 	{
 		Random random = new Random(System.nanoTime());
+		boolean turnOver=false;
 		switch(difficulty)
 		{
 		case EASY:
-			int compGuessRow=random.nextInt();
-			int compGuessCol=random.nextInt();
-			
+
+			while(turnOver==false)
+			{
+				int compGuessRow=random.nextInt(shipBoard.getRows());
+				int compGuessCol=random.nextInt(shipBoard.getColumns());
+				int compGuess= game.tryGuess(compGuessRow, compGuessCol, this);
+				if(compGuess==BattleShip.GUESS_INVALID)
+				{
+					turnOver=false;
+				}else if(compGuess==BattleShip.GUESS_HIT){
+					BattleShip.window.println("Computer Player got a hit!");
+					turnOver=true;
+				}else if(compGuess==BattleShip.GUESS_MISS){
+					BattleShip.window.println("Computer Player missed!");
+					turnOver=true;
+				}
+			}
 			break;
 		case MEDIUM:
 			break;
@@ -74,7 +89,7 @@ public final class ComputerPlayer extends Player
 		case HARD:
 			break;
 		}
-		
+
 		ready = true;
 	}
 
