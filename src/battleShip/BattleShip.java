@@ -163,8 +163,7 @@ public class BattleShip
 
 
 		// lets print the blank board:
-		window.println("Player 1 blank board:");
-		player1.printboard();
+		
 		String question1 = "";
 		String question2 = "";
 		boolean shipBattle = true;
@@ -172,13 +171,22 @@ public class BattleShip
 		boolean shipBoat = true;
 		boolean shipSub = true;
 		boolean shipDest = true;
+		int playerTurn = 1;
 		String word1 = "(1) Battleship, ";
 		String word2 = "(2) Aircraft Carrier, ";
 		String word3 = "(3) Boat, ";
 		String word4 = "(4) Submarine, ";
 		String word5 = "(5) Destroyer";
-		while(shipBattle==true||shipAir==true||shipBoat==true||shipSub==true||shipDest==true)
+		while((shipBattle==true||shipAir==true||shipBoat==true||shipSub==true||shipDest==true)&playerTurn<=2)
 		{
+			if(playerTurn==1)
+			{
+			window.println("Player " + playerTurn + " blank board:");
+			player1.printboard();
+			}else if(playerTurn==2){
+				window.println("Player " + playerTurn + " blank board:");
+				player2.printboard();
+			}
 			window.println("Which ship would you like to place? Options: \n"
 					+ word1 + word2 + word3  + word4 + word5);
 			int shipType = window.nextInt() - 1;
@@ -240,7 +248,10 @@ public class BattleShip
 			}
 			break;
 		default:
+			if(!(shipType>=1||shipType<=5))
+			{
 			window.println("Invalid ship selection. Please enter a number 1-5.");
+			}
 		}
 
 		window.println(question1);
@@ -263,14 +274,15 @@ public class BattleShip
 					vertical=false;
 				}else{
 					window.println("Invalid input. Please enter Y/y or N/n");
+					continue;
 				}
+			}else{
+				window.println("Invalid column number. Please choose column between 1-10");
 			}
 		}else{
 			window.println("Invalid row number. Please choose row between 1-10.");
 		}
-
-		player1.simplePlacePiece(row, column, shipType, vertical);
-		player1.printboard();
+	
 		switch(shipType)
 		{
 		case BATTLESHIP:
@@ -294,6 +306,16 @@ public class BattleShip
 			word5 = "";
 			break;
 		}
+		if(playerTurn==1)
+		{
+			player1.simplePlacePiece(row, column, shipType, vertical);
+			player1.printboard();
+		}else if(playerTurn==2)
+		{
+			player2.simplePlacePiece(row, column, shipType, vertical);
+			player2.printboard();
 		}
+		}
+		
 	}
 }
