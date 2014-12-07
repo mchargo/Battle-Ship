@@ -113,12 +113,12 @@ public class BattleShip
 		 * @param vertical Is the ship vertical or horizontal?
 		 * @return Whether or not the ship was placed.
 		 */
-		public boolean simplePlacePiece(int startRow, int startCol, 
+		public int simplePlacePiece(int startRow, int startCol, 
 				int piece, boolean vertical)
 		{
 			int pieceLength = lengths[piece];
 
-			boolean success = true;
+			int errorCode = 0;
 			int row = startRow;
 			int col = startCol;
 
@@ -127,7 +127,10 @@ public class BattleShip
 				for(int x = 0;x < pieceLength;x++)
 				{
 					if(!board[row][col].equals(bnone))
+					{
+						errorCode = 1;
 						throw new Exception("Ship Collision Error");
+					}
 
 					if(x == 0) board[row][col] = vertical ? bup : bleft;
 					else if(x == pieceLength - 1) 
@@ -141,10 +144,10 @@ public class BattleShip
 			{
 				// something went wrong?
 				window.println("Error placing piece: " + e);
-				success = false;
+				if(errorCode == 0) errorCode = 2;
 			}
 
-			return success;
+			return errorCode;
 		}
 
 		public void promptForName(int player)
@@ -295,7 +298,18 @@ public class BattleShip
 					word5 = "";
 					break;
 				}
-				simplePlacePiece(row, column, shipType, vertical);
+				
+				int errorCode = simplePlacePiece(row, column, shipType, vertical);
+				
+				if(errorCode == 1)
+				{
+					window.println("<SHIP COLLISION COMPLAINT>");
+				}else if(errorCode == 2)
+				{
+					window.println("<PIECE OFF OF BOARD ERROR>");
+				}else{
+					window.println("<PIECE WAS PLACED>");
+				}
 				printboard();
 			}
 		}
