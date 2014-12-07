@@ -98,22 +98,29 @@ public class BattleShip
 		boolean gameOver=false;
 		while(gameOver==false)
 		{
-			if(player1.getShipBoard().gameOver()==false)
-			{
-				window.println(player1.getName() + ", it is your turn!");
-				player1.myTurn();
-				gameOver=player2.getShipBoard().gameOver();
+			// player 1 gets to go
+			window.println(player1.getName() + ", it is your turn!");
+			player1.myTurn();
+			gameOver=player2.getShipBoard().gameOver();
 
-			}
-			if(player2.getShipBoard().gameOver()==false)
+			// did player 1 win?
+			if(gameOver)
 			{
+				// player 1 has won!
+				
+			}else{
+				// player 2 gets to go!
+				
 				window.println(player2.getName() + ", it is your turn!");
 				player2.myTurn();
 				gameOver=player1.getShipBoard().gameOver();
+				
+				if(gameOver)
+				{
+					// player 2 has won!!
+				}
 			}
 		}
-
-
 	}
 
 	private Player player1;
