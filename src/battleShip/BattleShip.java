@@ -20,7 +20,7 @@ public class BattleShip
 		this.rows = rows;
 		this.columns = columns;
 	}
-	
+
 	/**
 	 * Get the players ready to play the game
 	 * the completion of this method requires
@@ -29,20 +29,20 @@ public class BattleShip
 	public void setupPlayers()
 	{
 		System.out.print("Setting up player 1...\t\t");
-		player1 = new HumanPlayer(this, window, rows, columns);
+		player1 = new ComputerPlayer(this, rows, columns, ComputerPlayer.EASY);
 		player1.readyPlayer(1);
 		System.out.println("[ OK ]");
-		
+
 		System.out.print("Setting up player 2...\t\t");
 		player2 = new ComputerPlayer(this, rows, columns, ComputerPlayer.EASY);
 		player2.readyPlayer(2);
 		System.out.println("[ OK ]");
-		
+
 		/** 
 		 * Make sure both players are ready, if they aren't
 		 * then we should wait 1 second.
 		 */
-		
+
 		System.out.print("Waiting for all player to be ready...");
 		while(!(player1.isReady() && player2.isReady()))
 		{
@@ -52,7 +52,7 @@ public class BattleShip
 		}
 		System.out.println("[ OK ]");
 	}
-	
+
 	/**
 	 * When a player is ready to guess, they will
 	 * call this method so they can either get a
@@ -71,9 +71,9 @@ public class BattleShip
 		}else{
 			shipBoard = player1.getShipBoard();
 		}
-		
+
 		int code = shipBoard.guess(row, column); 
-		
+
 		switch(code)
 		{
 		case GUESS_HIT:
@@ -83,10 +83,10 @@ public class BattleShip
 			player.getGuessBoard().placeGuess(row, column, Board.miss);
 			break;
 		}
-		
+
 		return code;
 	}
-	
+
 	/**
 	 * Lets play the game!
 	 */
@@ -95,20 +95,39 @@ public class BattleShip
 		// make sure both players are ready!
 		if(!(player1.isReady() && player2.isReady()))
 			setupPlayers();
+		boolean gameOver=false;
+		while(gameOver==false)
+		{
+			if(player1.getShipBoard().gameOver()==false)
+			{
+				window.println(player1.getName() + ", it is your turn!");
+				player1.myTurn();
+				gameOver=player2.getShipBoard().gameOver();
+
+			}
+			if(player2.getShipBoard().gameOver()==false)
+			{
+				window.println(player2.getName() + ", it is your turn!");
+				player2.myTurn();
+				gameOver=player1.getShipBoard().gameOver();
+			}
+		}
+
+
 	}
-	
+
 	private Player player1;
 	private Player player2;
-	
+
 	private final int rows;
 	private final int columns;
-	
+
 	public static Window window;
 
 	public static final int GUESS_MISS = 0;
 	public static final int GUESS_HIT = 1;
 	public static final int GUESS_INVALID = 2;
-	
+
 	/**
 	 * This is the entry point of our program!
 	 * @param args Program arguments
@@ -117,7 +136,7 @@ public class BattleShip
 	{
 		// initilize window
 		window = new Window();
-		
+
 		// Create our game object from the Battleship class.
 		BattleShip game = new BattleShip(10, 10);
 		// Make our game setup our players.
