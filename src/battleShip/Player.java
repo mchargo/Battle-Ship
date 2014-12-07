@@ -43,6 +43,12 @@ public abstract class Player
 	}
 	
 	/**
+	 * Call this when it is the player's turn
+	 * to go in the game
+	 */
+	public abstract void myTurn();
+	
+	/**
 	 * Prompt the user for the name they
 	 * want to use.
 	 * @param player

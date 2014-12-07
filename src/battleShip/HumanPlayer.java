@@ -29,10 +29,17 @@ public final class HumanPlayer extends Player
 	 * the player's name.
 	 * @author mchargo <mike.chargo@sbcglobal.net>
 	 */
+	@Override
 	public void promptForName(int player)
 	{
 		window.println("Player " + player + " name: ");
 		name = window.nextLine();
+	}
+	
+	@Override
+	public void myTurn()
+	{
+		
 	}
 
 	/**
@@ -41,6 +48,7 @@ public final class HumanPlayer extends Player
 	 * 
 	 * @author mchargo <mike.chargo@sbcglobal.net>
 	 */
+	@Override
 	public void setupBoard()
 	{
 		// lets print the blank board:

@@ -31,6 +31,12 @@ public final class ComputerPlayer extends Player
 	{
 		name = "Computer Player";
 	}
+	
+	@Override
+	public void myTurn()
+	{
+		
+	}
 
 	@Override
 	public void setupBoard() 
