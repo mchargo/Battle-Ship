@@ -73,11 +73,17 @@ public class BattleShip
 		 */
 		public void printboard()
 		{
+			window.println("   A B C D E F G H I J");
 			for(int row = 0;row < boardRows;row++)
 			{
 				for(int column = 0;column < boardColumns;column++)
 				{
-					if(column == 0) window.print("|");
+					if(column == 0) 
+					{
+						String extra = " ";
+						if(row > 8) extra = "";
+						window.print((row + 1) + extra + "|");
+					}
 					window.print(board[row][column] + "|");
 				}
 
@@ -143,10 +149,10 @@ public class BattleShip
 
 		public void promptForName(int player)
 		{
-			window.print("Player " + player + " name: ");
+			window.println("Player " + player + " name: ");
 			name = window.nextLine();
 		}
-		
+
 		public void setupBoard()
 		{
 			// lets print the blank board:
