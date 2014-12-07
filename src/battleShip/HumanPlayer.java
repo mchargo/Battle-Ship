@@ -44,7 +44,7 @@ public final class HumanPlayer extends Player
 		{
 			guessBoard.print(window);
 			window.println("Which row would you like to guess?");
-			int playerRowGuess=window.nextInt();
+			int playerRowGuess=window.nextInt() - 1;
 			window.println("Which column would you like to guess?");
 			String colInput = "";
 			int playerColGuess=0;
