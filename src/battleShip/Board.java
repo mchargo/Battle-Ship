@@ -182,11 +182,11 @@ public class Board
 			if(board[guessRow][guessCol] != bnone &&
 					board[guessRow][guessCol] != miss) 
 			{
-				board[guessRow][guessCol] = miss;
-				return BattleShip.GUESS_MISS;
-			}else {
 				board[guessRow][guessCol] = hit;
 				return BattleShip.GUESS_HIT;
+			}else {
+				board[guessRow][guessCol] = miss;
+				return BattleShip.GUESS_MISS;
 			}
 		}catch(Exception e)
 		{
