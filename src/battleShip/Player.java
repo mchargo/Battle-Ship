@@ -53,6 +53,16 @@ public abstract class Player
 	}
 	
 	/**
+	 * Returns the board with all of the player's
+	 * guesses on it.
+	 * @return
+	 */
+	public Board getGuessBoard()
+	{
+		return guessBoard;
+	}
+	
+	/**
 	 * Call this when it is the player's turn
 	 * to go in the game
 	 */
@@ -70,9 +80,7 @@ public abstract class Player
 	 * on the game board.
 	 */
 	public abstract void setupBoard();
-	
 	public boolean isReady(){return ready;}
-	
 	public void setName(String name){this.name = name;}
 	public String getName(){return name;}
 

@@ -194,6 +194,11 @@ public class Board
 		}
 	}
 	
+	public void placeGuess(int row, int column, char piece)
+	{
+		board[row][column] = piece;
+	}
+	
 	public int getColumns() {return boardColumns;}
 	public int getRows() {return boardRows;}
 

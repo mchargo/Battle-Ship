@@ -72,7 +72,19 @@ public class BattleShip
 			shipBoard = player1.getShipBoard();
 		}
 		
-		return shipBoard.guess(row, column);
+		int code = shipBoard.guess(row, column); 
+		
+		switch(code)
+		{
+		case GUESS_HIT:
+			player.getGuessBoard().placeGuess(row, column, Board.hit);
+			break;
+		case GUESS_MISS:
+			player.getGuessBoard().placeGuess(row, column, Board.miss);
+			break;
+		}
+		
+		return code;
 	}
 	
 	/**
