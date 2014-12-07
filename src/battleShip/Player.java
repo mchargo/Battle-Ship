@@ -16,8 +16,9 @@ public abstract class Player
 	 * @param boardRows How many rows are on the board?
 	 * @param boardColumns How many columns are on the board?
 	 */
-	public Player(int boardRows, int boardColumns)
+	public Player(BattleShip game, int boardRows, int boardColumns)
 	{
+		this.game = game;
 		guessBoard = new Board(boardRows, boardColumns);
 		shipBoard = new Board(boardRows, boardColumns);
 		name = "";
@@ -75,6 +76,7 @@ public abstract class Player
 	public void setName(String name){this.name = name;}
 	public String getName(){return name;}
 
+	protected BattleShip game; /**< This is a reference back to the BattleShip game. */
 	protected Board guessBoard; /**< This board is used to show the guesses for the player. */
 	protected Board shipBoard;/**< This board is used to show the placement of the user's ships.*/
 	protected String name; /**< The name of the player.*/

@@ -18,9 +18,9 @@ public final class HumanPlayer extends Player
 	 * @param boardRows How many board rows are there?
 	 * @param boardColumns How many board columns are there?
 	 */
-	public HumanPlayer(Window window, int boardRows, int boardColumns) 
+	public HumanPlayer(BattleShip game, Window window, int boardRows, int boardColumns) 
 	{
-		super(boardRows, boardColumns);
+		super(game, boardRows, boardColumns);
 		this.window = window;
 	}
 

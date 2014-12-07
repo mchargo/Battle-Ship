@@ -19,9 +19,9 @@ public final class ComputerPlayer extends Player
 	 * @see MEDIUM
 	 * @see HARD
 	 */
-	public ComputerPlayer(int boardRows, int boardColumns, int difficulty) 
+	public ComputerPlayer(BattleShip game, int boardRows, int boardColumns, int difficulty) 
 	{
-		super(boardRows, boardColumns);
+		super(game, boardRows, boardColumns);
 		this.difficulty = difficulty;
 		
 	}
