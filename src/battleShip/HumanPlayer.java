@@ -57,6 +57,7 @@ public final class HumanPlayer extends Player
 			int playerGuess=game.tryGuess(playerRowGuess, playerColGuess, this);
 			if(playerGuess==BattleShip.GUESS_INVALID)
 			{
+				window.println("Invalid Guess. Please try again.");
 				playerTurn=true;
 			}else if(playerGuess==BattleShip.GUESS_HIT){
 				window.println("Congrats! You got a hit!");
