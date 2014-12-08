@@ -1,4 +1,4 @@
-package battleShip;
+package battleShip.old;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -63,7 +63,7 @@ public class Window implements WindowListener
 
 		field.requestFocus();
 	}
-
+	
 	@Override public void windowActivated(WindowEvent e) {}
 	@Override public void windowClosed(WindowEvent e){}
 	@Override public void windowDeactivated(WindowEvent e){}
