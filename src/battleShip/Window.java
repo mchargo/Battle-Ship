@@ -24,8 +24,6 @@ public class Window implements WindowListener
 		field = new JTextField(columns);
 		field.setFont( new Font("monospaced", Font.PLAIN, 14) );
 		// enable auto scrolling
-		DefaultCaret caret = (DefaultCaret)field.getCaret();
-		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		field.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -41,6 +39,8 @@ public class Window implements WindowListener
 		area.setLineWrap(true);
 		area.setEditable(false);
 		area.setFont( new Font("monospaced", Font.PLAIN, 14) );
+		DefaultCaret caret = (DefaultCaret)area.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		pane = new JScrollPane(area);
 		pane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
