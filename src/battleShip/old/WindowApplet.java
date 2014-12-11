@@ -1,4 +1,4 @@
-package battleShip;
+package battleShip.old;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -8,6 +8,8 @@ import java.util.concurrent.CountDownLatch;
 
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
+
+import battleShip.BattleShip;
 
 public class WindowApplet extends JApplet
 {
@@ -67,7 +69,7 @@ public class WindowApplet extends JApplet
 			@Override
 			public void run()
 			{
-				BattleShip.window = WindowApplet.this;
+				//BattleShip.window = WindowApplet.this;
 				BattleShip.main(new String[0]);
 			}
 		}).start();

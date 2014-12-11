@@ -1,4 +1,4 @@
-package battleShip.old;
+package battleShip;
 
 import java.awt.BorderLayout;
 import java.awt.Font;

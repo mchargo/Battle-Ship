@@ -1,4 +1,5 @@
 Manifest-Version: 1.0
 Application-Name: Battle-Ship
-permissions: all-permissions 
+Permissions: sandbox 
+Created-By: Chetter-Games
 

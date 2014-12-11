@@ -47,7 +47,7 @@ public class Board
 	 * Print the board out to a window.
 	 * @param window The window to print to.
 	 */
-	public void print(WindowApplet window)
+	public void print(Window window)
 	{
 		// print the column letters
 		window.print("   ");

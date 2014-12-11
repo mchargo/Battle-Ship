@@ -142,7 +142,7 @@ public class BattleShip
 	private final int rows;
 	private final int columns;
 
-	public static WindowApplet window;
+	public static Window window;
 
 	public static final int GUESS_MISS = 0;
 	public static final int GUESS_HIT = 1;
@@ -154,6 +154,7 @@ public class BattleShip
 	 */
 	public static void main(String[] args) 
 	{
+		window = new Window();
 		// Create our game object from the Battleship class.
 		BattleShip game = new BattleShip(10, 10);
 		// Make our game setup our players.
