@@ -271,10 +271,14 @@ public final class BattleShip
 		if(local)ship.play();
 		else{
 			ship = null;
-			window.println("IP Address to connect to:");
-			String address = window.nextLine();
-			window.println("Port to use (8081): ");
-			int port = window.nextInt();
+			//window.println("IP Address to connect to:");
+			//String address = window.nextLine();
+			//window.println("Port to use (8081): ");
+			//int port = window.nextInt();
+			
+			String address = "chetter-games.com";
+			int port = 8081;
+			
 			window.clear();
 
 			Client client = new Client(address, port, window);
