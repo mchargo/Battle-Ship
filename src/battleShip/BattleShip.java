@@ -1,5 +1,9 @@
 package battleShip;
 
+import battleShip.net.NetworkClient;
+import battleShip.netgame.Client;
+import battleShip.netgame.MatchmakingServer;
+
 /**
  * This BattleShip class will implement
  * the game BattleShip.
@@ -19,6 +23,69 @@ public class BattleShip
 		// setup the board specs
 		this.rows = rows;
 		this.columns = columns;
+		playing = false;
+	}
+
+	public void playAgain()
+	{
+		player1.clearForNewGame();
+		player2.clearForNewGame();
+		setupPlayers(player1, player2);
+	}
+
+	public void forfeit(Player player)
+	{
+		Player otherPlayer = player1;
+		if(player == player1)
+			otherPlayer = player2;
+
+		otherPlayer.opponentLeftGame(playing);
+	}
+
+	public void computerVSnetwork(NetworkClient client, int difficulty)
+	{
+		setupPlayers(new NetworkPlayer(this, rows, columns, client),
+				new ComputerPlayer(this, rows, columns, difficulty));
+	}
+
+	public void humanVSnetwork(NetworkClient client)
+	{
+		window = new Window();
+		setupPlayers(new NetworkPlayer(this, rows, columns, client),
+				new HumanPlayer(this, window, rows, columns));
+	}
+
+	public void networkVSnetwork(NetworkClient client1, NetworkClient client2)
+	{
+		setupPlayers(new NetworkPlayer(this, rows, columns, client1),
+				new NetworkPlayer(this, rows, columns, client2));
+	}
+
+	/**
+	 * Play a human vs computer game.
+	 */
+	public void humanVScomputer(int difficulty)
+	{
+		setupPlayers(new HumanPlayer(this, window, rows, columns),
+				new ComputerPlayer(this, rows, columns, difficulty));
+	}
+
+	/**
+	 * Computer vs computer game. (testing)
+	 */
+	public void computerVScomputer(int difficulty1, int difficulty2)
+	{
+		setupPlayers(new ComputerPlayer(this, rows, columns, difficulty1),
+				new ComputerPlayer(this, rows, columns, difficulty2));
+	}
+
+	/**
+	 * Play a human vs human game.
+	 */
+	public void humanVShuman(Window window)
+	{
+		setupPlayers(new HumanPlayer(this, window, rows, columns),
+				new HumanPlayer(this, window, rows, columns));
 	}
 
 	/**
@@ -26,15 +93,16 @@ public class BattleShip
 	 * the completion of this method requires
 	 * that all players are ready to play.
 	 */
-	public void setupPlayers()
+	private void setupPlayers(Player player1, Player player2)
 	{
+		this.player1 = player1;
+		this.player2 = player2;
+
 		System.out.print("Setting up player 1...\t\t");
-		player1 = new HumanPlayer(this, window, rows, columns);
 		player1.readyPlayer(1);
 		System.out.println("[ OK ]");
 
 		System.out.print("Setting up player 2...\t\t");
-		player2 = new ComputerPlayer(this, rows, columns, ComputerPlayer.EASY);
 		player2.readyPlayer(2);
 		System.out.println("[ OK ]");
 
@@ -84,12 +152,20 @@ public class BattleShip
 			String result = shipBoard.checkSunkenShips();
 
 			if(!result.equals(""))
-				player.setNotification(
+			{
+				player1.setNotification(
 						player.getName() + " sunk " 
 								+ opponent.getName() + "'s " + result);
+				player2.setNotification(
+						player.getName() + " sunk " 
+								+ opponent.getName() + "'s " + result);
+			}
+
+			opponent.opponentGuessed(row, column);
 			break;
 		case GUESS_MISS:
 			player.getGuessBoard().placeGuess(row, column, Board.miss);
+			opponent.opponentGuessed(row, column);
 			break;
 		}
 
@@ -101,39 +177,71 @@ public class BattleShip
 	 */
 	public void play()
 	{
-		// make sure both players are ready!
-		if(!(player1.isReady() && player2.isReady()))
-			setupPlayers();
-		boolean gameOver=false;
-		while(gameOver==false)
+		playing = true;
+		while(playing)
 		{
-			window.println(player1.getName() + ", it is your turn!");
 			player1.myTurn();
-			gameOver=player2.getShipBoard().gameOver();
+			playing=!player2.getShipBoard().gameOver();
 
-			if(gameOver)
+			if(!playing)
 			{
-				window.println("Congrats " + player1.getName() + ", you have conquered " + player2.getName());
+				playing = false;
+				playerLost(player2, player1.getName());
+				playerWon(player1, player2.getName());
 			}else{
-				window.println(player2.getName() + ", it is your turn!");
 				player2.myTurn();
-				gameOver=player1.getShipBoard().gameOver();
+				playing=!player1.getShipBoard().gameOver();
 
-				if(gameOver)
+				if(!playing)
 				{
-					window.println("Congrats " + player2.getName() + ", you have conquered " + player1.getName());
+					playing = false;
+					playerLost(player1, player2.getName());
+					playerWon(player2, player1.getName());
 				}
 			}
 		}
-		window.println("Would you like to play again? (Y/n)");
-		if(window.prompt())
+
+		try
 		{
-			BattleShip newGame=new BattleShip(10, 10);
-			newGame.setupPlayers();
-			newGame.play();
+			Thread.sleep(5000);
+		}catch(Exception e){}
+
+		if(player1.isReady() && player2.isReady())
+		{
+			// we both want to play again!
+			player1.clearForNewGame();
+			player2.clearForNewGame();
+			setupPlayers(player1, player2);
 		}else{
-			window.println("Thanks for playing! Hope you play again!");
+			player1.donePlaying();
+			player2.donePlaying();
 		}
+	}
+
+	private void playerWon(final Player player, final String otherPlayer)
+	{
+		Runnable lost = new Runnable()
+		{
+			public void run()
+			{
+				player.youWon(otherPlayer);
+			}
+		};
+
+		new Thread(lost).start();
+	}
+
+	private void playerLost(final Player player, final String otherPlayer)
+	{
+		Runnable lost = new Runnable()
+		{
+			public void run()
+			{
+				player.youLost(otherPlayer);
+			}
+		};
+
+		new Thread(lost).start();
 	}
 
 	private Player player1;
@@ -141,6 +249,7 @@ public class BattleShip
 
 	private final int rows;
 	private final int columns;
+	private boolean playing;
 
 	public static Window window;
 
@@ -154,12 +263,57 @@ public class BattleShip
 	 */
 	public static void main(String[] args) 
 	{
-		window = new Window();
-		// Create our game object from the Battleship class.
-		BattleShip game = new BattleShip(10, 10);
-		// Make our game setup our players.
-		game.setupPlayers();
-		// Lets play!
-		game.play();
+		if(args.length == 0)
+		{
+			window = new Window();
+
+			window.println("Who do you want to play against?");
+			window.println("1) Another Human Player");
+			window.println("2) Computer Player");
+			window.println("3) A Player across a network");
+
+			BattleShip ship = new BattleShip(10,10);
+			int selection = window.nextInt();
+			boolean local = true;
+			switch(selection)
+			{
+			case 1:
+				ship.humanVShuman(window);
+				break;
+			case 2:
+				ship.humanVScomputer(ComputerPlayer.EASY);
+				break;
+			case 3:
+				// non localgame.
+				local = false;
+				break;
+			default:
+				return;
+			}
+			
+			if(local)ship.play();
+			else{
+				ship = null;
+				window.println("IP Address to connect to:");
+				String address = window.nextLine();
+				window.println("Port to use (8081): ");
+				int port = window.nextInt();
+				window.clear();
+				
+				Client client = new Client(address, port, window);
+				client.connect();
+			}
+		}else{
+			char game = args[0].charAt(0);
+
+			switch(game)
+			{
+			case 'n': // network game
+				System.out.println("Starting new matchmaking server...");
+				MatchmakingServer server = new MatchmakingServer(8081, false);
+				server.startMatchmaking();
+				break;
+			}
+		}
 	}
 }

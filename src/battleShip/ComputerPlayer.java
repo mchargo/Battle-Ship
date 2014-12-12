@@ -50,10 +50,12 @@ public final class ComputerPlayer extends Player
 				{
 					turnOver=false;
 				}else if(compGuess==BattleShip.GUESS_HIT){
-					BattleShip.window.println("Computer Player got a hit!");
+					if(BattleShip.window != null)
+						BattleShip.window.println("Computer Player got a hit!");
 					turnOver=true;
 				}else if(compGuess==BattleShip.GUESS_MISS){
-					BattleShip.window.println("Computer Player missed!");
+					if(BattleShip.window != null)
+						BattleShip.window.println("Computer Player missed!");
 					turnOver=true;
 				}
 			}

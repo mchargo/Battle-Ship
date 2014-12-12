@@ -19,11 +19,9 @@ public abstract class Player
 	public Player(BattleShip game, int boardRows, int boardColumns)
 	{
 		this.game = game;
-		guessBoard = new Board(boardRows, boardColumns);
-		shipBoard = new Board(boardRows, boardColumns);
-		name = "";
-		ready = false;
-		notification = "";
+		this.boardRows = boardRows;
+		this.boardColumns = boardColumns;
+		clearForNewGame();
 	}
 	
 	/**
@@ -45,12 +43,59 @@ public abstract class Player
 	}
 	
 	/**
+	 * Notify the player that we can no
+	 * longer play =(
+	 */
+	public void donePlaying(){}
+	
+	/**
 	 * Returns the board with all of the ships on it.
 	 * @return The ship board.
 	 */
-	public Board getShipBoard()
+	public Board getShipBoard(){return shipBoard;}
+	
+	/**
+	 * Notify the player that they have won.
+	 */
+	public void youWon(String otherPlayer){}
+	
+	/**
+	 * Notify the player that the opponent has
+	 * left the game.
+	 * @param playing Whether or not we were playing
+	 * when the opponent left the game.
+	 */
+	public void opponentLeftGame(boolean playing){}
+	
+	/**
+	 * Notify the player that they lost.
+	 */
+	public void youLost(String otherPlayer){}
+	
+	/**
+	 * Ask the player if they want to play again
+	 * @return Whether or not the player wants to play again
+	 */
+	public boolean wantsToPlayAgain(){return true;}
+	
+	/**
+	 * Notify the player that the opponent has
+	 * guessed here.
+	 * @param row The row where the opponent guessed.
+	 * @param col The column where the opponent guessed.
+	 */
+	public void opponentGuessed(int row, int col){}
+	
+	/**
+	 * Clear settings to prepare for a new game.
+	 */
+	public void clearForNewGame()
 	{
-		return shipBoard;
+		guessBoard = new Board(boardRows, boardColumns);
+		shipBoard = new Board(boardRows, boardColumns);
+		name = "";
+		ready = false;
+		notification = "";
 	}
 	
 	/**
@@ -101,5 +146,7 @@ public abstract class Player
 	protected String name; /**< The name of the player.*/
 	protected boolean ready; /**< Whether or not the player is ready to play. */
 	protected String notification; /**< A message that should be printed at the beginning of a player's turn.*/
+	protected int boardRows;
+	protected int boardColumns;
 }
 

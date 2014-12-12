@@ -1,85 +1,126 @@
-package battleShip;
+package battleShip.netgame;
 
-/**
- * This class represents a HumanPlayer that
- * can play from a Window.
- * 
- * @author John Detter<john@detter.com>
- *
- */
+import battleShip.BattleShip;
+import battleShip.Board;
+import battleShip.Window;
+import battleShip.net.NetworkClient;
+import battleShip.net.NetworkListener;
 
-public final class HumanPlayer extends Player
+public class Client implements NetworkListener
 {
-	/**
-	 * Create a human object with the given
-	 * window for input, board rows and board
-	 * columns.
-	 * @param window The window to get input from.
-	 * @param boardRows How many board rows are there?
-	 * @param boardColumns How many board columns are there?
-	 */
-	public HumanPlayer(BattleShip game, Window window, int boardRows, int boardColumns) 
+	public Client(String address, int port, Window window)
 	{
-		super(game, boardRows, boardColumns);
-		this.window = window;
+		network = new NetworkClient(address, port);
+		network.setNetworkListener(this);
+		name = "";
+		Client.window = window;
+	}
+
+	@Override
+	public void messageReceived(String message)
+	{
+		StringBuilder builder = new StringBuilder(message);
+		char flag = message.charAt(0);
+		builder.deleteCharAt(0);
+
+		int rows;
+		int cols;
+		
+		switch(flag)
+		{
+		case FINDING_ANOTHER_PLAYER:
+			window.println("Looking for another player...");
+			break;
+		case REQUEST_NAME:
+			promptForName(1);
+			break;
+		case RECEIVE_BOARD_SETTINGS:
+			rows = Integer.valueOf(builder.charAt(0) + "" + builder.charAt(1));
+			cols = Integer.valueOf(builder.charAt(2) + "" + builder.charAt(3));
+
+			shipBoard = new Board(rows, cols);
+			guessBoard = new Board(rows, cols);
+
+			setupBoard();
+			break;
+		case SEND_ME_YOUR_MOVE:
+			myTurn();
+			break;
+		case DISPLAY_NOTIFICATION:
+			notification = builder.toString();
+			break;
+		case RECEIVE_OPPONENTS_GUESS:
+			rows = Integer.valueOf(builder.charAt(0) + "" + builder.charAt(1));
+			cols = Integer.valueOf(builder.charAt(2) + "" + builder.charAt(3));
+			shipBoard.guess(rows, cols);
+			break;
+		case OPPONENT_LEFT_GAME:
+			window.println("Your opponent has left the game!");
+			break;
+		case YOU_HAVE_WON:
+			window.println("You won!");
+			playAgain();
+			break;
+		case YOU_HAVE_LOST:
+			window.println("You lost!");
+			playAgain();
+			break;
+		case OPPONENT_QUIT:
+			window.println("You opponent has quit the game!");
+			window.println("You won!");
+			break;
+		case DONE_PLAYING:
+			window.println("This game has ended.");
+			network.disconnect(null);
+			break;
+		}
+	}
+
+	public void playAgain()
+	{
+		window.println("Would you like to play again?");
+		boolean yes = window.prompt();
+		if(yes)network.sendMessage("" + I_WANT_TO_PLAY_AGAIN);
+		else network.sendMessage("" + I_DO_NOT_WANT_TO_PLAY_AGAIN);
 	}
 	
-	public void opponentLeftGame(boolean playing)
-	{
-		if(playing) window.println("Your opponent has forfeited.");
-		else window.println("You opponent has left.");
-	}
-
 	/**
 	 * This will use the Window to get
 	 * the player's name.
 	 * @author mchargo <mike.chargo@sbcglobal.net>
 	 */
-	@Override
 	public void promptForName(int player)
 	{
 		window.println("Player " + player + " name: ");
 		name = window.nextLine();
+		network.sendMessage(RECIEVE_NAME + "" + name);
 	}
-	
-	@Override
+
 	public void youWon(String otherPlayer)
 	{
-		window.println("Congrats " + getName() + ", you have conquered " + otherPlayer);
-		
+		window.println("Congrats " + name + ", you have conquered " + otherPlayer);
+
 		window.println("Would you like to play again? (Y/n)");
 		if(window.prompt())
 		{
-			this.clearForNewGame();
+			// decide later
 		}else{
 			window.println("Thanks for playing! Hope you play again!");
 		}
 	}
-	
-	@Override
-	public void youLost(String otherPlayer)
-	{
-		window.println("Would you like to play again? (Y/n)");
-		if(window.prompt())
-		{
-			game.playAgain();
-		}else{
-			window.println("Thanks for playing! Hope you play again!");
-		}
-	}
-	
-	@Override
+
 	public void myTurn()
 	{
-		window.println(getName() + ", it is your turn!");
-		
+		window.println(name + ", it is your turn!");
+
 		boolean playerTurn=true;
 		while(playerTurn==true)
 		{
 			shipBoard.print(window);
 			guessBoard.print(window);
-			if(!notification.equals(""))
-				window.println(notification);
+			if(notification != null)
+				if(!notification.equals(""))
+					window.println(notification);
 			notification = "";
 			window.println("Which row would you like to guess?");
 			int playerRowGuess=window.nextInt() - 1;
@@ -93,17 +134,32 @@ public final class HumanPlayer extends Player
 				playerColGuess = colInput.charAt(0) - 'a';
 				if(playerColGuess < 0) colInput = "";
 			}
-			int playerGuess=game.tryGuess(playerRowGuess, playerColGuess, this);
-			if(playerGuess==BattleShip.GUESS_INVALID)
+			// lets get the code here.
+			String extraRow = "";
+			String extraCol = "";
+			if(playerRowGuess <= 9) extraRow = "0";
+			if(playerColGuess <= 9) extraCol = "0";
+			String rowS = extraRow + playerRowGuess ;
+			String colS = extraCol + playerColGuess;
+
+			network.sendMessage(RECIEVE_GUESS + rowS + colS);
+
+			char result = network.blockForMessage().charAt(0);
+
+			if(result == MOVE_INVALID)
 			{
 				window.println("Invalid Guess. Please try again.");
 				playerTurn=true;
-			}else if(playerGuess==BattleShip.GUESS_HIT){
-				window.println("Congrats! You got a hit!");
-				playerTurn=false;
-			}else if(playerGuess==BattleShip.GUESS_MISS){
-				window.println("I'm sorry! You missed!");
-				playerTurn=false;
+			}else 
+			{
+				guessBoard.putGuess(playerRowGuess, playerColGuess, result == MOVE_HIT);
+				if(result == MOVE_HIT){
+					window.println("Congrats! You got a hit!");
+					playerTurn=false;
+				}else{
+					window.println("I'm sorry! You missed!");
+					playerTurn=false;
+				}
 			}
 		}
 	}
@@ -114,7 +170,6 @@ public final class HumanPlayer extends Player
 	 * 
 	 * @author mchargo <mike.chargo@sbcglobal.net>
 	 */
-	@Override
 	public void setupBoard()
 	{
 		// lets print the blank board:
@@ -243,19 +298,40 @@ public final class HumanPlayer extends Player
 				continue;
 			}
 
-			int errorCode = shipBoard.placePiece(row, column, shipType, vertical);
+			// lets get the code here.
+			String extraRow = "";
+			String extraCol = "";
+			if(row < 9) extraRow = "0";
+			if(column < 9) extraCol = "0";
+			String vert = vertical ? "T" : "F";
 
-			switch(errorCode)
+			network.sendMessage(RECEIVE_BOARD_CONFIG
+					+ (extraRow + row) + (extraCol +column) +  ("" + shipType) + vert);
+
+			String err = network.blockForMessage();
+			int flag;
+
+			if(err.length() == 1)
+				flag = 0;
+			else if(err.charAt(1) == '1')
+				flag = 1;
+			else flag = 2;
+
+			switch(flag)
 			{
-			case Board.SHIP_COLLISION_ERROR:
+			case 1:
 				window.println("Already have placed ship here. Please place current ship elsewhere.");
 				break;
 
-			case Board.SHIP_OFF_OF_BOARD_ERROR:
+			case 2:
 				window.println("Oops! Looks like you tried placing your ship off the board. Please try again.");
 				break;
 
 			default:
+				window.println("Unknown error, please try again.");
+				break;
+
+			case 0:
 				// There was no error, so lets mark down which ship was placed.
 
 				switch(shipType)
@@ -281,16 +357,67 @@ public final class HumanPlayer extends Player
 					word5 = "";
 					break;
 				}
+
+				shipBoard.placePiece(row, column, shipType, vertical);
 				break;
 			}
 		}
 
 		// we are ready to play now.
 		ready = true;
-		
+
 		// hide our board configuration!
 		window.clear();
+		window.println("Waiting for other player...");
 	}
 
-	private Window window; /**< Window that should be used for user io. */ 
+	public void connect()
+	{
+		window.println("Connecting to host...");
+		network.connect();
+	}
+
+	private NetworkClient network;
+
+	private String name;
+
+	public boolean isReady(){return ready;}
+	public void setName(String name){this.name = name;}
+	public String getName(){return name;}
+
+	protected BattleShip game; /**< This is a reference back to the BattleShip game. */
+	protected Board guessBoard; /**< This board is used to show the guesses for the player. */
+	protected Board shipBoard;/**< This board is used to show the placement of the user's ships.*/
+	protected boolean ready; /**< Whether or not the player is ready to play. */
+	protected String notification; /**< A message that should be printed at the beginning of a player's turn.*/
+	protected int boardRows;
+	protected int boardColumns;
+
+	private static Window window;
+
+	// to client flags
+	public static final char REQUEST_NAME 				= 'a';
+	public static final char RECEIVE_BOARD_SETTINGS		= 'b';
+	public static final char SHIP_PLACEMENT_ERROR_CODE 	= 'd';
+	public static final char SHIP_PLACEMENT_SUCCESS 	= 'e';
+	public static final char SEND_ME_YOUR_MOVE 			= 'f';
+	public static final char MOVE_INVALID 				= 'g';
+	public static final char MOVE_HIT 					= 'i';
+	public static final char MOVE_MISS 					= 'j';
+	public static final char DISPLAY_NOTIFICATION		= 'k';
+	public static final char SHIP_ALREADY_PLACED		= 'l';
+	public static final char RECEIVE_OPPONENTS_GUESS	= 'm';
+	public static final char OPPONENT_LEFT_GAME			= 'n';
+	public static final char YOU_HAVE_WON				= 'o';
+	public static final char YOU_HAVE_LOST				= 'p';
+	public static final char OPPONENT_QUIT				= 'q';
+	public static final char DONE_PLAYING				= 'r';
+	public static final char FINDING_ANOTHER_PLAYER		= 's';
+	
+	// to server flag
+	public static final char RECEIVE_BOARD_CONFIG 		= 'a';
+	public static final char RECIEVE_NAME 				= 'b';
+	public static final char RECIEVE_GUESS 				= 'c';
+	public static final char I_WANT_TO_PLAY_AGAIN		= 'd';
+	public static final char I_DO_NOT_WANT_TO_PLAY_AGAIN= 'e';
 }

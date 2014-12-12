@@ -103,7 +103,7 @@ public class Board
 
 		int pieceLength = SHIP_LENGTHS[shipCode];
 		ships.add(new Ship(pieceLength, startRow, startCol, vertical, SHIP_NAMES[shipCode]));
-		
+
 		for(int x = 0;x < pieceLength;x++)
 		{
 			if(x == 0) board[startRow][startCol] = vertical ? bup : bleft;
@@ -168,7 +168,7 @@ public class Board
 					return false;
 		return true;
 	}
-	
+
 	/**
 	 * Checks to see if any ships have been
 	 * sunked since the last hit.
@@ -181,26 +181,26 @@ public class Board
 			if(ship.isSunk()) continue;
 			int row = ship.getRow();
 			int col = ship.getCol();
-			
+
 			boolean complete = false;
-			
+
 			for(int x = 0;x < ship.getLength();x++)
 			{
 				complete = false;
 				if(board[row][col] != hit) break;
-				
+
 				if(ship.isVertical()) row++;
 				else col++;
 				complete = true;
 			}
-			
+
 			if(complete)
 			{
 				ship.setSunk(true);
 				return ship.getName();
 			}
 		}
-		
+
 		return "";
 	}
 
@@ -229,6 +229,27 @@ public class Board
 		}catch(Exception e)
 		{
 			return BattleShip.GUESS_INVALID;
+		}
+	}
+
+	/**
+	 * Try a guess at the given row and column.
+	 * @param guessRow The guess row.
+	 * @param guessCol The guess column.
+	 * @return The guess code.
+	 * @see GUESS_MISS
+	 * @see GUESS_HIT
+	 * @see GUESS_INVALID
+	 */
+	public int putGuess(int guessRow, int guessCol, boolean gotHit)
+	{
+		if(gotHit) 
+		{
+			board[guessRow][guessCol] = hit;
+			return BattleShip.GUESS_HIT;
+		}else {
+			board[guessRow][guessCol] = miss;
+			return BattleShip.GUESS_MISS;
 		}
 	}
 
