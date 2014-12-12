@@ -11,7 +11,7 @@ import java.util.concurrent.CountDownLatch;
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
 
-public class Window implements WindowListener
+public final class Window implements WindowListener
 {
 	public Window(){this(30, 50);}
 	public Window(int rows, int columns){this("Java24Hours", rows, columns, true);}

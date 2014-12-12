@@ -1,6 +1,6 @@
 package battleShip;
 
-public class Ship
+public final class Ship
 {
 	public Ship(int length, int row, int col, boolean vertical, String name)
 	{

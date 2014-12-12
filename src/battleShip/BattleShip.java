@@ -1,8 +1,6 @@
 package battleShip;
 
-import battleShip.net.NetworkClient;
 import battleShip.netgame.Client;
-import battleShip.netgame.MatchmakingServer;
 
 /**
  * This BattleShip class will implement
@@ -11,7 +9,7 @@ import battleShip.netgame.MatchmakingServer;
  *
  */
 
-public class BattleShip 
+public final class BattleShip 
 {
 	/**
 	 * Construct a new BattleShip object.
@@ -40,25 +38,6 @@ public class BattleShip
 			otherPlayer = player2;
 
 		otherPlayer.opponentLeftGame(playing);
-	}
-
-	public void computerVSnetwork(NetworkClient client, int difficulty)
-	{
-		setupPlayers(new NetworkPlayer(this, rows, columns, client),
-				new ComputerPlayer(this, rows, columns, difficulty));
-	}
-
-	public void humanVSnetwork(NetworkClient client)
-	{
-		window = new Window();
-		setupPlayers(new NetworkPlayer(this, rows, columns, client),
-				new HumanPlayer(this, window, rows, columns));
-	}
-
-	public void networkVSnetwork(NetworkClient client1, NetworkClient client2)
-	{
-		setupPlayers(new NetworkPlayer(this, rows, columns, client1),
-				new NetworkPlayer(this, rows, columns, client2));
 	}
 
 	/**
@@ -263,57 +242,43 @@ public class BattleShip
 	 */
 	public static void main(String[] args) 
 	{
-		if(args.length == 0)
+		window = new Window();
+
+		window.println("Who do you want to play against?");
+		window.println("1) Another Human Player");
+		window.println("2) Computer Player");
+		window.println("3) A Player across a network");
+
+		BattleShip ship = new BattleShip(10,10);
+		int selection = window.nextInt();
+		boolean local = true;
+		switch(selection)
 		{
-			window = new Window();
+		case 1:
+			ship.humanVShuman(window);
+			break;
+		case 2:
+			ship.humanVScomputer(ComputerPlayer.EASY);
+			break;
+		case 3:
+			// non localgame.
+			local = false;
+			break;
+		default:
+			return;
+		}
 
-			window.println("Who do you want to play against?");
-			window.println("1) Another Human Player");
-			window.println("2) Computer Player");
-			window.println("3) A Player across a network");
+		if(local)ship.play();
+		else{
+			ship = null;
+			window.println("IP Address to connect to:");
+			String address = window.nextLine();
+			window.println("Port to use (8081): ");
+			int port = window.nextInt();
+			window.clear();
 
-			BattleShip ship = new BattleShip(10,10);
-			int selection = window.nextInt();
-			boolean local = true;
-			switch(selection)
-			{
-			case 1:
-				ship.humanVShuman(window);
-				break;
-			case 2:
-				ship.humanVScomputer(ComputerPlayer.EASY);
-				break;
-			case 3:
-				// non localgame.
-				local = false;
-				break;
-			default:
-				return;
-			}
-			
-			if(local)ship.play();
-			else{
-				ship = null;
-				window.println("IP Address to connect to:");
-				String address = window.nextLine();
-				window.println("Port to use (8081): ");
-				int port = window.nextInt();
-				window.clear();
-				
-				Client client = new Client(address, port, window);
-				client.connect();
-			}
-		}else{
-			char game = args[0].charAt(0);
-
-			switch(game)
-			{
-			case 'n': // network game
-				System.out.println("Starting new matchmaking server...");
-				MatchmakingServer server = new MatchmakingServer(8081, false);
-				server.startMatchmaking();
-				break;
-			}
+			Client client = new Client(address, port, window);
+			client.connect();
 		}
 	}
 }

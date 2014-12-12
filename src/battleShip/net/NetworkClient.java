@@ -6,7 +6,7 @@ import java.io.EOFException;
 import java.net.Socket;
 import java.util.concurrent.CountDownLatch;
 
-public class NetworkClient 
+public final class NetworkClient 
 {
 	public NetworkClient(String address, int port)
 	{

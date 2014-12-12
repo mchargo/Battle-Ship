@@ -21,7 +21,7 @@ import java.util.LinkedList;
  *
  */
 
-public class Board 
+public final class Board 
 {
 	/**
 	 * Create a new Board object with the

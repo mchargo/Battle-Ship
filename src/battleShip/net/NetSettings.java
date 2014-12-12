@@ -2,7 +2,7 @@ package battleShip.net;
 
 import java.io.PrintStream;
 
-public class NetSettings 
+public final class NetSettings 
 {
 	public static final boolean NET_VER_DEBUG = true;
 	public static final boolean NET_DEBUG = true;

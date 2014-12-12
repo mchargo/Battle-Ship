@@ -6,7 +6,7 @@ import battleShip.Window;
 import battleShip.net.NetworkClient;
 import battleShip.net.NetworkListener;
 
-public class Client implements NetworkListener
+public final class Client implements NetworkListener
 {
 	public Client(String address, int port, Window window)
 	{
