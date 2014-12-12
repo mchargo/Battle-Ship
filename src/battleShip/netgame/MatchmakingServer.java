@@ -15,12 +15,12 @@ public class MatchmakingServer implements ServerListener
 		server.setServerListener(this);
 		this.allowSinglePlayer = allowSinglePlayer;
 	}
-	
+
 	public void startMatchmaking()
 	{
 		server.connect();
 	}
-	
+
 	@Override
 	public void clientConnected(NetworkClient client) 
 	{
@@ -54,33 +54,64 @@ public class MatchmakingServer implements ServerListener
 			}
 		}
 	}
-	
+
 	public void startGame()
 	{
 		System.out.print("Starting a new game...\t\t");
-		
+
 		boolean valid = false;
 		if(allowSinglePlayer && client1 != null && client1.connected())
 			valid = true;
 		if(client1 != null && client1.connected()
 				&& client2 != null && client2.connected())
 			valid = true;
-		
+
 		if(valid)
 		{
 			System.out.println("[ OK ]");
-			BattleShip ship = new BattleShip(10, 10);
-			if(allowSinglePlayer) ship.computerVSnetwork(client1, ComputerPlayer.EASY);
-			else ship.networkVSnetwork(client1, client2);
-			ship.play();
+
+			if(allowSinglePlayer) launchGame(client1);
+			else launchGame(client1, client2);
+
+			client1 = null;
+			client2 = null;
+			System.out.println("Ready for more players.");
 		}else{
 			System.out.println("[FAIL]");
 			System.out.println("Not enough players!!");
 		}
 	}
-	
+
+	private void launchGame(final NetworkClient client)
+	{
+		Runnable run = new Runnable()
+		{
+			public void run()
+			{
+				BattleShip ship = new BattleShip(10, 10);
+				ship.computerVSnetwork(client1, ComputerPlayer.EASY);
+				ship.play();
+			}
+		};
+		new Thread(run).start();
+	}
+
+	private void launchGame(final NetworkClient client1, final NetworkClient client2)
+	{
+		Runnable run = new Runnable()
+		{
+			public void run()
+			{
+				BattleShip ship = new BattleShip(10, 10);
+				ship.networkVSnetwork(client1, client2);
+				ship.play();
+			}
+		};
+		new Thread(run).start();
+	}
+
 	private Server server;
-	
+
 	// we need 2 clients to start a game
 	private NetworkClient client1;
 	private NetworkClient client2;

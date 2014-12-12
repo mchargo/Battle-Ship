@@ -2,6 +2,7 @@ package battleShip.net;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.net.Socket;
 import java.util.concurrent.CountDownLatch;
 
@@ -89,6 +90,8 @@ public class NetworkClient
 		listenThread = null;
 		NetSettings.verln("[ OK ]");
 
+		if(listener != null) listener.connectionLost();
+		
 		if(error == null) return;
 		if(error.equals("")) return;
 
@@ -136,6 +139,10 @@ public class NetworkClient
 						// cleanup
 						data = null;
 						message = null;
+					}catch(EOFException e)
+					{
+						NetSettings.verln("The connection was broken.");
+						disconnect(null);
 					}catch(Exception e)
 					{
 						NetSettings.wtf(e);

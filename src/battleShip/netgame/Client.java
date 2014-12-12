@@ -75,6 +75,11 @@ public class Client implements NetworkListener
 			break;
 		}
 	}
+	
+	public void connectionLost()
+	{
+		window.println("Unfortunatly, you have lost connection.");
+	}
 
 	public void playAgain()
 	{

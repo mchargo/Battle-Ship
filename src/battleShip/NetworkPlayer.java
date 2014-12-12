@@ -17,6 +17,11 @@ public class NetworkPlayer extends Player implements NetworkListener
 		gotName = false;
 		clearForNewGame();
 	}
+	
+	public void connectionLost()
+	{
+		game.forfeit(this);
+	}
 
 	@Override
 	public void messageReceived(String message) 
