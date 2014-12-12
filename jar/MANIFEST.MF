@@ -1,5 +1,0 @@
-Manifest-Version: 1.0
-Application-Name: Battle-Ship
-Permissions: sandbox 
-Created-By: Chetter-Games
-
