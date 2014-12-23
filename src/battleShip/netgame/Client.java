@@ -25,7 +25,7 @@ public class Client implements NetworkListener
 
 		int rows;
 		int cols;
-		
+
 		switch(flag)
 		{
 		case FINDING_ANOTHER_PLAYER:
@@ -75,7 +75,7 @@ public class Client implements NetworkListener
 			break;
 		}
 	}
-	
+
 	public void connectionLost()
 	{
 		window.println("Unfortunatly, you have lost connection.");
@@ -88,7 +88,7 @@ public class Client implements NetworkListener
 		if(yes)network.sendMessage("" + I_WANT_TO_PLAY_AGAIN);
 		else network.sendMessage("" + I_DO_NOT_WANT_TO_PLAY_AGAIN);
 	}
-	
+
 	/**
 	 * This will use the Window to get
 	 * the player's name.
@@ -258,10 +258,8 @@ public class Client implements NetworkListener
 				}
 				break;
 			default:
-				if(!(shipType>=1||shipType<=5))
-				{
-					window.println("Invalid ship selection. Please enter a number 1-5.");
-				}
+				window.println("Invalid ship selection. Please enter a number 1-5.");
+				continue;
 			}
 
 			window.println(question1);
@@ -418,7 +416,7 @@ public class Client implements NetworkListener
 	public static final char OPPONENT_QUIT				= 'q';
 	public static final char DONE_PLAYING				= 'r';
 	public static final char FINDING_ANOTHER_PLAYER		= 's';
-	
+
 	// to server flag
 	public static final char RECEIVE_BOARD_CONFIG 		= 'a';
 	public static final char RECIEVE_NAME 				= 'b';
