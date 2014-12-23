@@ -306,8 +306,8 @@ public class Client implements NetworkListener
 			// lets get the code here.
 			String extraRow = "";
 			String extraCol = "";
-			if(row < 9) extraRow = "0";
-			if(column < 9) extraCol = "0";
+			if(row <= 9) extraRow = "0";
+			if(column <= 9) extraCol = "0";
 			String vert = vertical ? "T" : "F";
 
 			network.sendMessage(RECEIVE_BOARD_CONFIG
